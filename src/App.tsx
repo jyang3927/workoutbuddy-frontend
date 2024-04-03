@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { LoginPage } from './login/components/LoginPage';
 import { AuthProvider } from './context/AuthContext';
-import { TestingComponent } from './testing/TestingComponent'
+import { TestingComponent } from './testing/TestingComponent';
 
 function App() {
   return (
