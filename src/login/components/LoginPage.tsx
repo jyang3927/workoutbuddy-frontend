@@ -1,17 +1,19 @@
-import { FormControl, OutlinedInput, Button } from '@mui/material'
+import { FormControl, OutlinedInput, Button, Container } from '@mui/material'
+import { useAuth } from '../../hooks/useAuth'
+import { AuthBar } from './AuthBar'
 
 
 export function LoginPage () {
+    const {signIn} = useAuth()
     return (
         <div>
+            <Container>
             <form className="loginSection">
                 <FormControl sx={{ width: '25ch' }}>
-                <OutlinedInput className="username" placeholder="Enter Username" />
-                <OutlinedInput className="password" placeholder="Enter Password" />
-                <Button variant="contained">Sign In</Button>
-                <Button href="#text-buttons">Create Account</Button>
+                <Button onClick={signIn} variant="contained">Sign In With Google</Button>
                 </FormControl>
             </form>
+            </Container>
         </div>
     )
 }
