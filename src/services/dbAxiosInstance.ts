@@ -1,9 +1,9 @@
 import axios from 'axios'; 
 import { GetToken } from './getToken';
 
-let firebaseURL = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || ""
+let MongoURL = process.env.REACT_APP_MONGO_URL || ""
 
-const dbAxiosInstance = axios.create({baseURL:`${firebaseURL}`})
+const dbAxiosInstance = axios.create({baseURL:`${MongoURL}/api`})
 
 dbAxiosInstance.interceptors.request.use(
     async(config) => {

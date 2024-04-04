@@ -38,7 +38,7 @@ export function TestingComponent(){
 
     return(
         <div>
-            <button onClick={() => getExercises("strength")}>cardio</button>
+            <button onClick={() => getExercises("strength")}>strength</button>
             {exercises.map(item => <div><div>{item.name}</div>
             <div>{item.difficulty}</div></div>)}
             <input type="text" onChange={(e) => setName(e.target.value)}></input> 
