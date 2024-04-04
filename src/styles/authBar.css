@@ -1,0 +1,60 @@
+.AuthBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    background-color: #EEF5F6;
+    height: 100vh;
+}
+/* when user is not logged in */
+.WelcomeSign{
+    color: #023E8A;
+    font-size: 75px;
+    padding-top: 100px;
+}
+
+.Logo {
+    width: 300px;
+    margin: 0px;
+}
+
+.CatchPhrase{
+    color: #023E8A;
+    font-size: 30px;
+}
+
+.GoogleSignIn{
+    background-color: #023E8A;
+    height: 50px;
+    margin-top: 50px;
+}
+
+/* when user is logged in */
+.WelcomeHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.WelcomeName{
+    font-size: 60px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    font-weight: 600;
+    color: #023E8A;
+    margin-top: 30px;
+}
+
+.NavBar{
+    background-color:#D9D9D9;
+    width: 100vw; 
+    height: 60px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
