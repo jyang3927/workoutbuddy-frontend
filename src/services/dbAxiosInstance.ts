@@ -1,5 +1,5 @@
 import axios from 'axios'; 
-import {getToken} from './getToken'; 
+import { GetToken } from './getToken';
 
 let MongoURL = process.env.REACT_APP_MONGO_URL || ""
 
@@ -8,7 +8,7 @@ const dbAxiosInstance = axios.create({baseURL:`${MongoURL}/api`})
 dbAxiosInstance.interceptors.request.use(
     async(config) => {
         //Retrieve the token in the way that fits your authentication string
-        const token = await getToken(); 
+        const token = await GetToken(); 
 
         if(token){
             config.headers['Authorization'] = `Bearer ${token}`;

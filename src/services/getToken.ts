@@ -1,7 +1,7 @@
 import {auth} from "../firebaseConfig"; 
 import { useAuth } from "../hooks/useAuth";
 
-export const getToken = async(): Promise<string | null> => {
+export const GetToken = async(): Promise<string | null> => {
     const {user, isAuthInitializing} = useAuth(); 
 
     if(!isAuthInitializing){
