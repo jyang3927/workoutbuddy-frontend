@@ -22,7 +22,7 @@ function App() {
           <Route path="/home" element={<AuthenticatedRoute authenticationPath={'/login'}><FavoriteExercises /></AuthenticatedRoute>} />
           <Route path="/calendar" element={<MyCalendar />}/>
           <Route path="/favorites/routines" element={<RoutinesList />}/>
-          <Route path="/favorites/exercises" element={<ExerciseList />}/>
+          <Route path="/favorites/exercises" element={<TestingComponent />}/>
         </Routes>
       </BrowserRouter>
       </AuthProvider>

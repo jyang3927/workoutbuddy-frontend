@@ -24,29 +24,28 @@ export const UserProfileProvider = ({children}: UserProfileProviderProps) => {
 
     // const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
     const [favoriteExercises, setFavoriteExercises] = useState<Exercise[]>([]); 
-    const [favoriteRoutines, setFavoriteRoutines] = useState<Routine[]>([]); 
+//     const [favoriteRoutines, setFavoriteRoutines] = useState<Routine[]>([]); 
 
-    useEffect(() => {
+//     useEffect(() => {
 
-    })
+//     })
 
-    function getFavoriteExercises(){
+//     function getFavoriteExercises(){
         
-    }
+//     }
 
-    function getRoutines(){
+//     function getRoutines(){
 
-    }
+//     }
 
-    function addFavoriteExercise(exercise: Exercise ) {
+//     function addFavoriteExercise(exercise: Exercise ) {
     
-    }
-    function deleteFavoriteExercise(id:string ) {
+//     }
+//     function deleteFavoriteExercise(id:string ) {
         
-    }
+//     }
 
-    return <UserProfileContext.Provider value ={{addFavoriteExercise, deleteFavoriteExercise, favoriteExercises, favoriteRoutines}}>
-        {children}
-    </UserProfileContext.Provider>
-
+//     return <UserProfileContext.Provider value ={{addFavoriteExercise, deleteFavoriteExercise, favoriteExercises, favoriteRoutines}}>
+//         {children}
+//     </UserProfileContext.Provider>
 }
