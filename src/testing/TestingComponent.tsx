@@ -1,3 +1,5 @@
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 import { useState } from "react"
 import { ExerciseApiResponse } from "../models/ExerciseApiResponse"
 import { searchExerciseType, searchExerciseName, searchExerciseMuscle } from "../services/ExerciseApiService"
@@ -35,7 +37,6 @@ export function TestingComponent(){
         }
     }
 
-
     return(
         <div>
             <button onClick={() => getExercises("strength")}>strength</button>
@@ -46,7 +47,8 @@ export function TestingComponent(){
             {nameExercise.map(item => <div>{item.name}</div>)}
             <button onClick={() => getExercisesMuscle("abdominals")}>abs</button>
             {muscle.map(item => <div><div>{item.name}</div>
-            <div>{item.difficulty}</div></div>)}
+            <div>{item.difficulty}</div>
+            </div>)}
         </div>
     )
  }
