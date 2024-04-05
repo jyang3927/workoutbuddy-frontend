@@ -12,9 +12,12 @@ import { AuthBar } from './login/components/AuthBar';
 import { ExerciseList } from './favoritesPage/components/ExerciseList';
 import { RoutinesList } from './favoritesPage/components/RoutinesList';
 import MyCalendar from './calendar/MyCalendar';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   return (
+  // <LocalizationProvider dateAdapter={AdapterDayjs}>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -26,6 +29,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       </AuthProvider>
+  // {/* </LocalizationProvider> */}
   );
 }
 // <div>
