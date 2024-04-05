@@ -1,5 +1,5 @@
-import {auth} from "../firebaseConfig"; 
-import { useAuth } from "../hooks/useAuth";
+import {auth} from "../../firebaseConfig"; 
+import { useAuth } from "../../hooks/useAuth";
 
 export const GetToken = async(): Promise<string | null> => {
     const {user, isAuthInitializing} = useAuth(); 

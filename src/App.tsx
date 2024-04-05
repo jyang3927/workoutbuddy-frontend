@@ -14,9 +14,12 @@ import { RoutinesList } from './favoritesPage/components/RoutinesList';
 import MyCalendar from './calendar/MyCalendar';
 import AddExerciseForm from './addExercise/components/AddExerciseForm';
 import AutocompleteTest from './testing/AutocompleteTest';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   return (
+  // <LocalizationProvider dateAdapter={AdapterDayjs}>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -28,6 +31,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       </AuthProvider>
+  // {/* </LocalizationProvider> */}
   );
 }
 // <div>

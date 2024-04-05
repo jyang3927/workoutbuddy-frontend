@@ -1,4 +1,4 @@
-import dbAxiosInstance from "./dbAxiosInstance"
+import dbAxiosInstance from "./helpers/dbAxiosInstance"
 
 export const goToFavoriteEx = async() => {
     try {
