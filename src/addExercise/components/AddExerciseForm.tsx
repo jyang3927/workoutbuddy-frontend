@@ -80,3 +80,8 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
     </div>
   )
 }
+
+// Concepts To Potentially Integrate
+
+// When I click the exercise from the dropdown, I'd like to get the type & strength for that exercise
+// There should be a way to target it
