@@ -1,5 +1,5 @@
 import { ExerciseApiResponse } from "../models/ExerciseApiResponse";
-import ExerciseAxiosInstance from "./ExerciseAxiosInstance";
+import ExerciseAxiosInstance from "./helpers/ExerciseAxiosInstance";
 
 
 //returns exercises from API searched by specific type 

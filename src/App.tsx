@@ -17,6 +17,7 @@ import { Entries } from './addExercise/components/Entries';
 
 function App() {
   return (
+  // <LocalizationProvider dateAdapter={AdapterDayjs}>
     <AuthProvider>
       <BrowserRouter>
         <Routes>
@@ -28,6 +29,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       </AuthProvider>
+  // {/* </LocalizationProvider> */}
   );
 }
 // <div>

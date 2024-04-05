@@ -1,8 +1,8 @@
-import dbAxiosInstance from "./dbAxiosInstance";
+import dbAxiosInstance from "../helpers/dbAxiosInstance";
 
-export const getUserData = async(userId:string) => {
+export const getUserData = async(userId: string) => {
     try{
-        const response = await dbAxiosInstance.get(`/users/${userId}`); 
+        const response = await dbAxiosInstance.get(`/users/`); 
         return response.data; 
     }catch (error) {
         console.error('Failed to fetch user data:', error);
