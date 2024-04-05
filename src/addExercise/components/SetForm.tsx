@@ -6,7 +6,10 @@ export function SetForm () {
             <form action="">
                 <TextField label="weight"></TextField>
                 <TextField label="reps"></TextField>
+                <button>Submit</button>
             </form>
         </div>
     )
 }
+
+// Expand on form,
