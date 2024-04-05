@@ -12,6 +12,8 @@ import { AuthBar } from './login/components/AuthBar';
 import { ExerciseList } from './favoritesPage/components/ExerciseList';
 import { RoutinesList } from './favoritesPage/components/RoutinesList';
 import MyCalendar from './calendar/MyCalendar';
+import AddExerciseForm from './addExercise/components/AddExerciseForm';
+import AutocompleteTest from './testing/AutocompleteTest';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
@@ -23,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element = {<AuthBar/>}/>
           <Route path="/home" element={<AuthenticatedRoute authenticationPath={'/login'}><FavoriteExercises /></AuthenticatedRoute>} />
-          <Route path="/calendar" element={<MyCalendar />}/>
+          <Route path="/calendar" element={< AutocompleteTest/>}/>
           <Route path="/favorites/routines" element={<RoutinesList />}/>
           <Route path="/favorites/exercises" element={<TestingComponent />}/>
         </Routes>
