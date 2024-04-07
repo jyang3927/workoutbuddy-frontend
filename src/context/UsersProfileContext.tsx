@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 import { UserProfile } from "../models/UserProfile";
-import Exercise from "../models/Exercise";
+import {Exercise} from "../models/Exercise";
 import { Routine } from "../models/Routine";
 import { useAuth } from "../hooks/useAuth";
 

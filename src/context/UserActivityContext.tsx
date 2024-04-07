@@ -15,13 +15,13 @@ export const UserActivityProvider = ({children}: UserActivityProviderProps) => {
 
     const [userActivity, setUserActivity] = useState<UserActivity | null>(null); 
 
-    useEffect( 
-        ,[]); 
+    // useEffect( 
+    //     ,[]); 
 
 
 
         
-    return <UserActivityContext.Provider value ={{userActivity}}>
-        {children}
-    </UserActivityContext.Provider>
+    // return <UserActivityContext.Provider value ={{userActivity}}>
+    //     {children}
+    // </UserActivityContext.Provider>
 }; 
