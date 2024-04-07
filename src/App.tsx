@@ -1,3 +1,4 @@
+
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -43,15 +44,5 @@ function App() {
     //   </UserActivityProvider>
     // </AuthProvider>
     // {/* </LocalizationProvider> */}
-  );
-}
-// <div>
-//   <AuthProvider>
-// <div className="App">
-//   <LoginPage></LoginPage>
-// </div>
-// </AuthProvider>
-// <TestingComponent/>
-// </div>
 
 export default App;
