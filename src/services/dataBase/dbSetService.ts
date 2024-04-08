@@ -38,3 +38,16 @@ export const deleteSet = async(setId: string): Promise<void> => {
         throw error;
     }  
 }
+
+
+//create new set in specific exercise 
+export const createNewSetInExercise = async(set: Set, exerciseId: string): Promise<Set> => {
+    try{
+        let response = await dbAxiosInstance.post(`/sets/${exerciseId}`, set); 
+        return response.data; 
+    }
+    catch(error:any){
+        console.log("Error failed to fetch data", error); 
+        throw error; 
+    }
+}
