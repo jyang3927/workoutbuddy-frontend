@@ -1,8 +1,8 @@
-import { Set } from "./Set";
-
-export default interface Exercise {
+export interface Exercise {
+    _id?:string; 
+    uId: string;
     name: string;
     type: string; 
     muscle: string; 
-    sets: Set[]; 
-}
+    sets: string[];
+  }

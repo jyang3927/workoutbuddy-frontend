@@ -3,7 +3,7 @@ import { GetToken } from './getToken';
 
 let MongoURL = process.env.REACT_APP_MONGO_URL || ""
 
-const dbAxiosInstance = axios.create({baseURL:`${MongoURL}/api`})
+const dbAxiosInstance = axios.create({baseURL:`${MongoURL}`})
 
 dbAxiosInstance.interceptors.request.use(
     async(config) => {

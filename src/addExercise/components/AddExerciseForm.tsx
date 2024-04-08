@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { Button, Modal, Box, TextField } from '@mui/material';
 import { searchExerciseName } from '../../services/ExerciseApiService';
 import { ExerciseApiResponse } from '../../models/ExerciseApiResponse';
-import Exercise from '../../models/Exercise';
+import {Exercise} from '../../models/Exercise';
 import { Set } from '../../models/Set';
 
 interface ExerciseProps {
@@ -20,7 +20,7 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
 
   function handleSubmit(e:FormEvent) {
     e.preventDefault()
-    onExercise({name:selectedName, type:type, muscle:muscle, sets:sets})
+    // onExercise({name:selectedName, type:type, muscle:muscle, sets:sets})
     // clear the form
     setSearchTerm('')
     setType('')

@@ -1,6 +1,5 @@
-import Exercise from "./Exercise";
-
 export interface Routine{
+    uId: string;
     routineName: string; 
-    exercises: Exercise[]; 
+    exercises: string[];
 }
