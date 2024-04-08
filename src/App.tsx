@@ -39,7 +39,7 @@ function App() {
         <Route path="/userActivity/:date" element={<RoutinePerDate />} />
         <Route path="/favorites/routines" element={<TestingComponent />} />
         <Route path="/favorites/exercises" element={<Entries />} />
-        <Route path="/calendar/day/:date" element={<ExercisesPerDate />} />
+        {/* <Route path="/calendar/day/:date" element={<ExercisesPerDate />} /> */}
       </Routes>
     </BrowserRouter>
     // </AuthProvider>
