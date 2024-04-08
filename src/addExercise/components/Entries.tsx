@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Exercise from "../../models/Exercise"
+import {Exercise} from "../../models/Exercise"
 import { AddExerciseForm } from "./AddExerciseForm"
 import { FormExerciseList } from "./FormExerciseList"
 

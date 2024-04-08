@@ -1,4 +1,4 @@
-import Exercise from "../../models/Exercise"
+import {Exercise} from "../../models/Exercise"
 
 interface SingleExerciseProps {
     exercise:Exercise

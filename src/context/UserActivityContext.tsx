@@ -44,7 +44,7 @@ export const UserActivityProvider = ({
     }
   }, [user]);
   const getDayActivity = (date: Date) => {
-    userActivity?.filter();
+    // userActivity?.filter();
   };
   return (
     <UserActivityContext.Provider value={{ userActivity, getDayActivity }}>
