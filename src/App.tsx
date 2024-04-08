@@ -19,6 +19,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { RoutinePerDate } from "./routinePerDate/components/RoutinePerDate";
 import { UserActivityProvider } from "./context/UserActivityContext";
+import { Entries } from "./addExercise/components/Entries";
 function App() {
   return (
     // <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -37,8 +38,8 @@ function App() {
         />
         <Route path="/calendar" element={<AutocompleteTest />} />
         <Route path="/userActivity/:date" element={<RoutinePerDate />} />
-        <Route path="/favorites/routines" element={<RoutinesList />} />
-        <Route path="/favorites/exercises" element={<TestingComponent />} />
+        <Route path="/favorites/routines" element={<TestingComponent />} />
+        <Route path="/favorites/exercises" element={<Entries />} />
       </Routes>
     </BrowserRouter>
     //   </UserActivityProvider>
