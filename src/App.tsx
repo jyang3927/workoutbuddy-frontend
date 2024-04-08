@@ -36,7 +36,7 @@ function App() {
             </AuthenticatedRoute>
           }
         />
-        <Route path="/calendar" element={<AutocompleteTest />} />
+        <Route path="/calendar" element={<MyCalendar />} />
         <Route path="/userActivity/:date" element={<RoutinePerDate />} />
         <Route path="/favorites/routines" element={<TestingComponent />} />
         <Route path="/favorites/exercises" element={<Entries />} />
