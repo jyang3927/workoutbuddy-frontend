@@ -11,7 +11,7 @@ import { AuthContext } from "./AuthContext";
 import { useAuth } from "../hooks/useAuth";
 
 interface UserActivityContextType {
-  getDayActivity: (date: Date) => void;
+  getDayActivity: (date: Date) => UserActivity[];
   userActivity: UserActivity[] | null;
 }
 
@@ -30,12 +30,14 @@ export const UserActivityProvider = ({
   const { user } = useAuth();
   useEffect(() => {
     if (user) {
+      console.log("yes");
       getUserActivityByDate(
         new Date().getFullYear(),
         new Date().getMonth(),
         null
       )
         .then((res) => {
+          console.log(res);
           setUserActivity(res);
         })
         .catch((error: any) => {
@@ -43,8 +45,15 @@ export const UserActivityProvider = ({
         });
     }
   }, [user]);
+  console.log(userActivity);
   const getDayActivity = (date: Date) => {
-    userActivity?.filter();
+    if (userActivity) {
+      return userActivity?.filter((day) => {
+        return day.date.getTime() === date.getTime();
+      });
+    } else {
+      return [];
+    }
   };
   return (
     <UserActivityContext.Provider value={{ userActivity, getDayActivity }}>
