@@ -19,6 +19,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { RoutinePerDate } from "./routinePerDate/components/RoutinePerDate";
 import { UserActivityProvider } from "./context/UserActivityContext";
 import { Entries } from "./addExercise/components/Entries";
+import DateCalendarServerRequest from "./calendar/MyCalendar";
 import { ExercisesPerDate } from "./datePage/components/ExercisesPerDate";
 function App() {
   return (
