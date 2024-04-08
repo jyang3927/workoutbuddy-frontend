@@ -15,12 +15,12 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
   const [exercises, setExercises] = useState<ExerciseApiResponse[]>([])
   const [type, setType] = useState<string>('')
   const [muscle, setMuscle] = useState<string>('')
-  const [sets, setSet] = useState<Set[]>([])
+  const [sets, setSet] = useState<string[]>([])
   const [selectedName, setSelectedName] = useState('')
 
   function handleSubmit(e:FormEvent) {
     e.preventDefault()
-    // onExercise({name:selectedName, type:type, muscle:muscle, sets:sets})
+    onExercise({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
     // clear the form
     setSearchTerm('')
     setType('')
@@ -37,11 +37,17 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
 
   const handleChange = (event:any) => {
     setSelectedName(event.target.value);
+    const foundMuscle = exercises.find((item)=> item.name === event.target.value)
+    console.log(foundMuscle)
+    if (foundMuscle) {
+    setMuscle(foundMuscle.muscle)
+    setType(foundMuscle.type)
+    }
   }
 
   const getExercisesName = async() => {
     try{
-        let response = await searchExerciseName(searchTerm); 
+        let response = await searchExerciseName(searchTerm) 
         setExercises(response)
     }
     catch(error:any){
@@ -72,6 +78,7 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
         </select>}
             <TextField label="Type" fullWidth value={type} onChange={(e) => setType(e.target.value)}/>
             <TextField label="Muscle" fullWidth value={muscle} onChange={(e) => setMuscle(e.target.value)}/>
+              
             {/* Add more form fields as needed */}
             <Button type="submit" variant="contained" sx={{ mt: 2 }}>Submit</Button>
           </form>
