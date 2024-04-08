@@ -20,7 +20,7 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
 
   function handleSubmit(e:FormEvent) {
     e.preventDefault()
-    // onExercise({name:selectedName, type:type, muscle:muscle, sets:sets})
+    onExercise({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
     // clear the form
     setSearchTerm('')
     setType('')

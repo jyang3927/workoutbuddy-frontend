@@ -1,3 +1,4 @@
+import { db } from "../../firebaseConfig";
 import { Exercise } from "../../models/Exercise";
 import dbAxiosInstance from "../helpers/dbAxiosInstance";
 
@@ -39,4 +40,16 @@ export const editExercise = async(exerciseId:string, exerciseUpdate:Partial<Exer
         console.log("Error failed to fetch data", error); 
         throw error;
     } 
+}
+
+//create new exercise in routine 
+export const createExerciseInRoutine = async(exercise: Exercise, routineId: string): Promise<Exercise> => {
+    try{
+        let response = await dbAxiosInstance.post(`/exercises/${routineId}`, exercise); 
+        return response.data; 
+    }
+    catch (error:any){
+        console.log("Error failed to fetch data", error); 
+        throw error;
+    }
 }
