@@ -5,6 +5,7 @@ import { FormExerciseList } from "./FormExerciseList"
 
 export function Entries () {
     const [exercises, setExercises] = useState<Exercise[]>([])
+    
     function addExercise(exercise:Exercise) {
         setExercises([...exercises, exercise])
     }

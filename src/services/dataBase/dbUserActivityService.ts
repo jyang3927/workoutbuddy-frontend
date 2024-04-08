@@ -19,3 +19,6 @@ export const getUserActivityByDate = async (
 //get array of activities UserActvitiy:
 
 //return array of exercise ObjectId;
+
+
+//Create user activity 
