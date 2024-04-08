@@ -23,9 +23,9 @@ export const createNewSet = async(set: Set): Promise<Set> => {
 
 export const updateSet = async(setId: string, setUpdate: Partial<Set>): Promise<void> => {
     try{
-        await dbAxiosInstance.put(`/sets/${setId}`, setUpdate); 
+        await dbAxiosInstance.put(`/sets/${setId}`, setUpdate);  
     }catch (error:any){
-        console.log("Error failed to fetch data", error); 
+        console.log("Error failed to fetch data API", error); 
         throw error;
     }   
 }
