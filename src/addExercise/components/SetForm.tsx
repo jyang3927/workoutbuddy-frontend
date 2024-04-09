@@ -2,16 +2,29 @@ import { Box, Button, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { FormEvent, useState } from "react";
 import { Set } from "../../models/Set";
+import { createNewSetInExercise } from "../../services/dataBase/dbSetService";
 
 interface SetFormProps {
     onSet: (set:Set) => void
+    exerciseId:string
   }
 
-export function SetForm ({onSet}:SetFormProps) {
+export function SetForm ({onSet, exerciseId}:SetFormProps) {
     const [open, setOpen] = useState(false);
     const [weight, setWeight] = useState<number>(0);
     const [reps, setReps] = useState<number>(0);
     const [setNumber, setSetNumber] = useState<number>(0);
+    const [createSet, setCreateSet] = useState<Set>({setNumber: 0, uId: "update"})
+
+    const createSetTest = async(set:Set, exerciseId:string) => {
+        try{
+            let response = await createNewSetInExercise(set, exerciseId); 
+            setCreateSet(response)
+        }catch (error:any){
+            console.log("Error failed to fetch data", error); 
+            throw error;
+        }   
+    }
 
     const handleOpen = () => {setOpen(true)};
     const handleClose = () => {setOpen(false)};
@@ -19,6 +32,7 @@ export function SetForm ({onSet}:SetFormProps) {
     function handleSubmit(e:FormEvent) {
         e.preventDefault()
         onSet({weight:weight, reps:reps, setNumber:setNumber, uId:''})
+        createSetTest({weight:weight, reps:reps, setNumber:setNumber, uId:''}, exerciseId)
         // clear the form
         setWeight(0)
         setReps(0)

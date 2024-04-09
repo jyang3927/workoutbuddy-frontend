@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Set } from "../models/Set"
+import { Set } from "../../models/Set"
 
 interface SingleSetProps {
     set:Set
