@@ -22,7 +22,7 @@ export const createUserActivity = async (
 ): Promise<UserActivity> => {
   try {
     const response = await dbAxiosInstance.post<UserActivity>(
-      `/userActivity`,
+      `/api/userActivity`,
       activityData
     );
     return response.data;
@@ -34,11 +34,12 @@ export const createUserActivity = async (
 
 //update User Activity
 export const updateUserActivity = async (
+  uId: string,
   activityData: UserActivity
 ): Promise<UserActivity> => {
   try {
-    const response = await dbAxiosInstance.post<UserActivity>(
-      `/userActivity/:id`,
+    const response = await dbAxiosInstance.put<UserActivity>(
+      `/api/userActivity/${uId}`,
       activityData
     );
     return response.data;

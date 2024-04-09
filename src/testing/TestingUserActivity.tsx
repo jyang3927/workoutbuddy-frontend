@@ -1,64 +1,82 @@
 import { useState } from "react";
 import { UserActivity } from "../models/UserActivity";
+import {
+  createUserActivity,
+  getUserActivityByDate,
+  updateUserActivity,
+} from "../services/dataBase/dbUserActivityService";
+import { useUserActivity } from "../hooks/useUserActivity";
 
-const [user, setUser] = useState<UserActivity>({
-  uId: "demo",
-  date: new Date("04-08-2024"),
-  routines: ["demo", "demo"],
-  workedOut: true,
-});
-
-const createActivity = async (activity: UserActivity) => {
-  try {
-    let response = await simulateCreateActivityAPI(activity);
-    setUser(response);
-    console.log("Activity created successfully:", response);
-  } catch (error: any) {
-    console.error("Error creating activity:", error);
-    throw error;
-  }
-};
-
-const simulateCreateActivityAPI = async (
-  activity: UserActivity
-): Promise<UserActivity> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const success = Math.random() > 0.5;
-      if (success) {
-        console.log("Simulated API: Create activity success.");
-        resolve(activity);
-      } else {
-        console.log("Simulated API: Create activity failed.");
-        reject("Failed to create activity");
-      }
-    }, 1000);
+//test create user
+export function TestingUserActivity() {
+  const [user, setUser] = useState<UserActivity>({
+    uId: "demo",
+    date: new Date("04-08-2024"),
+    routines: ["demo", "demo"],
+    workedOut: true,
   });
-};
-
-const updateActivity = async (activity: UserActivity) => {
-  try {
-    let response = await simulateUpdateActivityAPI(activity);
-    setUser((prev) => ({ ...prev, ...response }));
-    console.log("Activity updated successfully:", response);
-  } catch (error: any) {
-    console.error("Error updating activity:", error);
-    throw error;
-  }
-};
-const simulateUpdateActivityAPI = async (
-  activity: UserActivity
-): Promise<UserActivity> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const success = Math.random() > 0.5;
-      if (success) {
-        console.log("Simulated API: Update activity success.");
-        resolve(activity);
-      } else {
-        console.log("Simulated API: Update activity failed.");
-        reject("Failed to update activity");
-      }
-    }, 1000);
-  });
-};
+  let dateTest = new Date();
+  const [userActivityTest, setUserActivityTest] = useState<
+    UserActivity[] | null
+  >([]);
+  const [newActivityTest, setNewActivityTest] = useState<UserActivity>(user);
+  console.log(dateTest);
+  const { updateActivity } = useUserActivity();
+  const getUserActivityTesting = async (month: Date) => {
+    let yearDate = month.getFullYear();
+    console.log("year", yearDate);
+    let monthDate = month.getMonth();
+    console.log("month", monthDate);
+    let response = await getUserActivityByDate(null, null, null);
+    console.log("service response", response);
+    setUserActivityTest(response);
+    console.log(userActivityTest);
+  };
+  const createUserActivityTesting = async (newActivity: UserActivity) => {
+    let response = await createUserActivity(newActivity);
+    console.log("Response from testing", response);
+    setNewActivityTest(response);
+  };
+  const [updateActivityTest, setUpdateActivityTest] =
+    useState<UserActivity>(user);
+  console.log(dateTest);
+  const updateUserActivityTesting = async (userActivity: UserActivity) => {
+    const response = await updateActivity(userActivity);
+    console.log(response);
+  };
+  return (
+    <div>
+      <h1>Get User Activity</h1>
+      <button onClick={() => getUserActivityTesting(dateTest)}>
+        testing user activity
+      </button>
+      <h1>Create User Activity</h1>
+      <button
+        onClick={() =>
+          createUserActivityTesting({
+            uId: "createUser",
+            date: dateTest,
+            routines: [],
+            workedOut: true,
+          })
+        }
+      >
+        Create user activity
+      </button>
+      <button
+        onClick={() =>
+          updateUserActivityTesting({
+            uId: "createUser",
+            date: dateTest,
+            routines: ["demo", "testestest"],
+            workedOut: false,
+          })
+        }
+      >
+        updating user activity
+      </button>
+      {newActivityTest._id}
+    </div>
+  );
+}
+//test update user

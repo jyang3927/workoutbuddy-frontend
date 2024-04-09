@@ -36,7 +36,6 @@ export const UserActivityProvider = ({
   const { user } = useAuth();
   useEffect(() => {
     if (user) {
-      console.log("yes");
       getUserActivityByDate(
         new Date().getFullYear(),
         new Date().getMonth(),
@@ -83,25 +82,27 @@ export const UserActivityProvider = ({
 
   const updateActivity = async (activityData: UserActivity): Promise<void> => {
     try {
-      updateUserActivity(activityData)
-        .then((updatedActivity: UserActivity) => {
-          if (userActivity !== null) {
-            const updatedUserActivityList: UserActivity[] = [];
-            for (let i = 0; i < userActivity.length; i++) {
-              if (userActivity[i].uId === updatedActivity.uId) {
-                updatedUserActivityList.push(updatedActivity);
-              } else {
-                updatedUserActivityList.push(userActivity[i]);
+      if (user) {
+        updateUserActivity(user?.uid, activityData)
+          .then((updatedActivity: UserActivity) => {
+            if (userActivity !== null) {
+              const updatedUserActivityList: UserActivity[] = [];
+              for (let i = 0; i < userActivity.length; i++) {
+                if (userActivity[i].uId === updatedActivity.uId) {
+                  updatedUserActivityList.push(updatedActivity);
+                } else {
+                  updatedUserActivityList.push(userActivity[i]);
+                }
               }
+              setUserActivity(updatedUserActivityList);
+            } else {
+              setUserActivity([updatedActivity]);
             }
-            setUserActivity(updatedUserActivityList);
-          } else {
-            setUserActivity([updatedActivity]);
-          }
-        })
-        .catch((error: any) => {
-          console.error("Error updating activity:", error);
-        });
+          })
+          .catch((error: any) => {
+            console.error("Error updating activity:", error);
+          });
+      }
     } catch (error: any) {
       console.error("Error updating activity:", error);
     }
