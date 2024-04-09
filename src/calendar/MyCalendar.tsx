@@ -15,7 +15,7 @@ export default function MyCalendar() {
 
   const [day, setDay] = React.useState<Date>(currentDay);  
 
-  console.log(day)
+  // console.log(day)
   return (
     <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}> 

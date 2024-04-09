@@ -11,19 +11,22 @@ interface ExercisesPerDateProps{
 
 export function ExercisesPerDate({day}: ExercisesPerDateProps) {
   // const date = useParams().date;
-  const { getDayActivity, userActivity } = useUserActivity();
+  const { getDayActivity, userActivity, getUserActivityForMonth } = useUserActivity();
 
-  const [dayActivity, setDayActivity] = useState<UserActivity| null>(null);
+  const [dayActivity, setDayActivity] = useState<UserActivity[]| null>(null);
 
   // console.log(dayActivity)
 
   useEffect(() => {
-      setDayActivity(getDayActivity(day));
+      getMonthInfo(day)
       // getDayActivity(day);
-      console.log(dayActivity, day);
+      // console.log(dayActivity, day);
     }, [day]);
 
-
+  const getMonthInfo = (day:Date) => {
+    let response = getUserActivityForMonth(day); 
+    // setDayActivity(response)
+  }
   return (
   <div className="ExercisesPerDate"></div>
   );
