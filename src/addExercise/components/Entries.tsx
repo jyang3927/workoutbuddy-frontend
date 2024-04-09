@@ -11,7 +11,7 @@ export function Entries () {
     }
     return (
         <div>
-            <AddExerciseForm onExercise={addExercise}></AddExerciseForm>
+            {/* <AddExerciseForm onExercise={addExercise}></AddExerciseForm> */}
             <FormExerciseList exercise={exercises}></FormExerciseList>
         </div>
     )

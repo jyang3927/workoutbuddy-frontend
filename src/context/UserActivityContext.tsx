@@ -3,11 +3,9 @@ import {
   createContext,
   useState,
   useEffect,
-  useContext,
 } from "react";
 import { UserActivity } from "../models/UserActivity";
 import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
-import { AuthContext } from "./AuthContext";
 import { useAuth } from "../hooks/useAuth";
 
 interface UserActivityContextType {
@@ -16,9 +14,7 @@ interface UserActivityContextType {
   userActivity: UserActivity[] | null;
 }
 
-export const UserActivityContext = createContext<
-  UserActivityContextType | undefined
->(undefined);
+export const UserActivityContext = createContext<UserActivityContextType | undefined>(undefined);
 
 interface UserActivityProviderProps {
   children: ReactNode;
@@ -34,10 +30,10 @@ export const UserActivityProvider = ({
 
   useEffect(() => {
     if (user) {
-      console.log("yes");
+      let currentDate = new Date(); 
       getUserActivityByDate(
-        new Date().getFullYear(),
-        new Date().getMonth(),
+        currentDate.getFullYear(),
+        (currentDate.getMonth() + 1),
         null
       )
         .then((res) => {
@@ -53,39 +49,30 @@ export const UserActivityProvider = ({
     // console.log(userActivity)
   }, [user]);
 
-  console.log(userActivity);
 
   const getUserActivityForMonth = async(month:Date): Promise<UserActivity[]> =>{
     try{
-      let monthYear = month.getFullYear(); 
-      let monthSet = month.getMonth(); 
-
+      let monthYear = month.getFullYear();
+      console.log("MonthYear", monthYear) 
+      let monthSet = month.getMonth() + 1 ; 
+      console.log("Monthset", monthSet)
       let response =  await getUserActivityByDate(monthYear, monthSet, null); 
       // let response = await getUserActivityByDate(null, null, month);
-      console.log("getUserActivityByDate Response:", response)
+      console.log("getUserActivityByMonth Response:", response)
+      setUserActivity(response)
       return response;
       // console.log(response)
-      console.log("monthButton response", response) 
     }catch(error:any){
       console.log("error in context")
       return error;
     }
-
-    // .then((res) => {
-    //   setUserActivity(res)
-    //   return res;
-    // })
-    // .catch((error: any) => {
-    //   console.log("error line 58")
-    //   console.log(error);
-    // });
   }
 
   const getDayActivity = (daySelected: Date) => {
     if (userActivity) {
       console.log(userActivity)
       return userActivity.filter((day) => {
-        return day.date.getTime() === daySelected.getTime();
+        return day.date === daySelected;
       });
       // try{
       //   let response = getUserActivityByDate(null, null, day)
@@ -94,7 +81,7 @@ export const UserActivityProvider = ({
       //   console.log("error here")
       // }
     } else {
-      console.log("line67")
+      console.log("ERROR IS getDayActivity line67")
       return [];
     }
   };

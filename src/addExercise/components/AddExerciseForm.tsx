@@ -24,7 +24,7 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
     try{
         let response = await createNewExercise(exercise); 
         setCreateExercise(response); 
-        console.log(response)
+        console.log("SETCREATEEXERCISE", response)
     }catch (error:any){
         console.log("Error failed to fetch data", error); 
         throw error;
@@ -103,10 +103,6 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
   )
 }
 
-
-function setCreateExercise(response: any) {
-  throw new Error('Function not implemented.');
-}
 // Concepts To Potentially Integrate
 
 // When I click the exercise from the dropdown, I'd like to get the type & strength for that exercise

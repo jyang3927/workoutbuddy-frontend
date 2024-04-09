@@ -7,6 +7,7 @@ import { createNewSet, deleteSet, getSetbyId, updateSet } from "../services/data
 import { UserActivity } from "../models/UserActivity";
 import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
 import { useUserActivity } from "../hooks/useUserActivity";
+import { TestingUserActivity } from "./TestingUserAct";
 export function TestingExerciseService(){
 
     const {getUserActivityForMonth} = useUserActivity(); 
@@ -49,15 +50,11 @@ export function TestingExerciseService(){
     // console.log(date.getMonth())
     // console.log(date.getFullYear())
 
-    useEffect(() => {
-        getUserActivityTest(dateTest)
-    }, [])
-
     const getUserActivityTest = async(dateTest:Date ) => {
 
         try{
             let response = await getUserActivityForMonth(dateTest); 
-            console.log("response:", response)
+            console.log("response using context:", response)
             return response; 
         }catch (error:any){
             console.log("Error failed to fetch data", error); 
@@ -150,6 +147,10 @@ export function TestingExerciseService(){
             </div>
             <div>
                 <button onClick={() => getUserActivityTest(dateTest)}>getUserActivity</button>
+            </div>
+            <div> 
+                <h1>UserActivityComponent</h1>
+                <TestingUserActivity/>
             </div>
         </div>
     )
