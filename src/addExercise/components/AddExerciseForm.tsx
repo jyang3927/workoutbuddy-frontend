@@ -4,6 +4,7 @@ import { searchExerciseName } from '../../services/ExerciseApiService';
 import { ExerciseApiResponse } from '../../models/ExerciseApiResponse';
 import {Exercise} from '../../models/Exercise';
 import { Set } from '../../models/Set';
+import { createNewExercise } from '../../services/dataBase/dbExerciseService';
 
 interface ExerciseProps {
   onExercise: (exercise:Exercise) => void
@@ -17,10 +18,24 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
   const [muscle, setMuscle] = useState<string>('')
   const [sets, setSet] = useState<string[]>([])
   const [selectedName, setSelectedName] = useState('')
+  const [createExercise, setCreateExercise] = useState<Exercise>({uId: 'null', name:'n', type:'n', muscle: 'n', sets:[]}); 
+
+  const createExerciseTest = async(exercise: Exercise) => {
+    try{
+        let response = await createNewExercise(exercise); 
+        setCreateExercise(response); 
+        console.log("SETCREATEEXERCISE", response)
+    }catch (error:any){
+        console.log("Error failed to fetch data", error); 
+        throw error;
+    }   
+}
+
 
   function handleSubmit(e:FormEvent) {
     e.preventDefault()
     onExercise({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
+    createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
     // clear the form
     setSearchTerm('')
     setType('')

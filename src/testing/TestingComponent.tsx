@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react"
 import { ExerciseApiResponse } from "../models/ExerciseApiResponse"
 import { searchExerciseType, searchExerciseName, searchExerciseMuscle } from "../services/ExerciseApiService"
+import { TestingUserActivity } from "./TestingUserAct";
 
 export function TestingComponent(){
     const [exercises, setExercises] = useState<ExerciseApiResponse[]>([]); 
@@ -49,6 +50,7 @@ export function TestingComponent(){
             {muscle.map(item => <div><div>{item.name}</div>
             <div>{item.difficulty}</div>
             </div>)}
+            
         </div>
     )
  }

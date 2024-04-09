@@ -1,10 +1,16 @@
-import { useState } from "react"; 
+import { useEffect, useState } from "react"; 
 import { Exercise } from "../models/Exercise";
 import {Set} from "../models/Set"; 
 import { deleteExercise, editExercise, getExerciseById } from "../services/dataBase/dbExerciseService";
 import { createNewExercise } from "../services/dataBase/dbExerciseService";
 import { createNewSet, deleteSet, getSetbyId, updateSet } from "../services/dataBase/dbSetService";
+import { UserActivity } from "../models/UserActivity";
+import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
+import { useUserActivity } from "../hooks/useUserActivity";
+import { TestingUserActivity } from "./TestingUserAct";
 export function TestingExerciseService(){
+
+    const {getUserActivityForMonth} = useUserActivity(); 
 
     const [exercise, setExercise] = useState<Exercise>({uId: 'demo', name:'demo', type:'demo', muscle: 'demo', sets:[]}); 
     const [createExercise, setCreateExercise] = useState<Exercise>({uId: 'null', name:'n', type:'n', muscle: 'n', sets:[]}); 
@@ -13,6 +19,8 @@ export function TestingExerciseService(){
     const [createSet, setCreateSet] = useState<Set>({uId:'createSet', setNumber: 2})
     const [partialSet, setPartialSet] = useState<Set>({uId: "update", setNumber: 5})
     
+    const [userActivity, setUserActivity] = useState<UserActivity | null>(null); 
+
     let exid = '6610669d1fa1a4b316d94a9b'; 
     let sid = '66133ab870a53c69c62a9dcf'; 
     let updates = '66133aba70a53c69c62a9dd1';
@@ -35,6 +43,25 @@ export function TestingExerciseService(){
         }catch(error:any){
             console.log(error)
         }
+    }
+    
+    let dateTest = new Date();
+    // console.log(date)
+    // console.log(date.getMonth())
+    // console.log(date.getFullYear())
+
+    const getUserActivityTest = async(dateTest:Date ) => {
+
+        try{
+            let response = await getUserActivityForMonth(dateTest); 
+            console.log("response using context:", response)
+            return response; 
+        }catch (error:any){
+            console.log("Error failed to fetch data", error); 
+            throw error;
+        }   
+        
+
     }
 
     const createExerciseTest = async(exercise: Exercise) => {
@@ -117,6 +144,13 @@ export function TestingExerciseService(){
                 {createSet._id}
                 <button onClick={() => deleteSetId('66133a8670a53c69c62a9dcc')}>Delete</button>
                 <button onClick={() => updateSetTest(updates, {setNumber: 0})}>Update</button>
+            </div>
+            <div>
+                <button onClick={() => getUserActivityTest(dateTest)}>getUserActivity</button>
+            </div>
+            <div> 
+                <h1>UserActivityComponent</h1>
+                <TestingUserActivity/>
             </div>
         </div>
     )

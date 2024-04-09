@@ -8,7 +8,12 @@ interface FormExerciseListProps {
 }
 
 export function FormExerciseList ({exercise}: FormExerciseListProps) {
+    //You are going to want to list out the exercises for the routine for that particular date here. 
+
+
+    
     const [exercises, setExercises] = useState<Exercise[]>([])
+    console.log("EXERCISE STATE", exercises)
 
     function addExercise(exercise:Exercise) {
         setExercises([...exercises, exercise])
