@@ -16,9 +16,37 @@ export const getUserActivityByDate = async (
     throw error;
   }
 };
+//Create user activity
+export const createUserActivity = async (
+  activityData: UserActivity
+): Promise<UserActivity> => {
+  try {
+    const response = await dbAxiosInstance.post<UserActivity>(
+      `/userActivity`,
+      activityData
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Failed to create user activity:", error);
+    throw error;
+  }
+};
+
+//update User Activity
+export const updateUserActivity = async (
+  activityData: UserActivity
+): Promise<UserActivity> => {
+  try {
+    const response = await dbAxiosInstance.post<UserActivity>(
+      `/userActivity/:id`,
+      activityData
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error("Failed to add or update user activity:", error);
+    throw error;
+  }
+};
 //get array of activities UserActvitiy:
 
 //return array of exercise ObjectId;
-
-
-//Create user activity 

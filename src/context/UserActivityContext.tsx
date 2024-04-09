@@ -6,13 +6,19 @@ import {
   useContext,
 } from "react";
 import { UserActivity } from "../models/UserActivity";
-import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
+import {
+  createUserActivity,
+  getUserActivityByDate,
+  updateUserActivity,
+} from "../services/dataBase/dbUserActivityService";
 import { AuthContext } from "./AuthContext";
 import { useAuth } from "../hooks/useAuth";
 
 interface UserActivityContextType {
   getDayActivity: (date: Date) => UserActivity[];
   userActivity: UserActivity[] | null;
+  createActivity: (activityData: UserActivity) => Promise<void>;
+  updateActivity: (activityData: UserActivity) => Promise<void>;
 }
 
 export const UserActivityContext = createContext<
@@ -55,8 +61,55 @@ export const UserActivityProvider = ({
       return [];
     }
   };
+  const createActivity = async (activityData: UserActivity): Promise<void> => {
+    try {
+      createUserActivity(activityData)
+        .then((createdActivity: UserActivity) => {
+          if (userActivity !== null) {
+            const newUserActivityList: UserActivity[] = userActivity.slice();
+            newUserActivityList.push(createdActivity);
+            setUserActivity(newUserActivityList);
+          } else {
+            setUserActivity([createdActivity]);
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error creating activity:", error);
+        });
+    } catch (error: any) {
+      console.error("Error creating activity:", error);
+    }
+  };
+
+  const updateActivity = async (activityData: UserActivity): Promise<void> => {
+    try {
+      updateUserActivity(activityData)
+        .then((updatedActivity: UserActivity) => {
+          if (userActivity !== null) {
+            const updatedUserActivityList: UserActivity[] = [];
+            for (let i = 0; i < userActivity.length; i++) {
+              if (userActivity[i].uId === updatedActivity.uId) {
+                updatedUserActivityList.push(updatedActivity);
+              } else {
+                updatedUserActivityList.push(userActivity[i]);
+              }
+            }
+            setUserActivity(updatedUserActivityList);
+          } else {
+            setUserActivity([updatedActivity]);
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error updating activity:", error);
+        });
+    } catch (error: any) {
+      console.error("Error updating activity:", error);
+    }
+  };
   return (
-    <UserActivityContext.Provider value={{ userActivity, getDayActivity }}>
+    <UserActivityContext.Provider
+      value={{ userActivity, getDayActivity, createActivity, updateActivity }}
+    >
       {children}
     </UserActivityContext.Provider>
   );
