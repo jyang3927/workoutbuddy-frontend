@@ -13,6 +13,7 @@ export function SingleExercise ({exercise}: SingleExerciseProps) {
     function addSet(set:Set) {
         setSets([...sets, set])
     }
+    console.log(exercise)
 
     return (
         <div style={{display: 'flex', backgroundColor: 'red', border:'10px solid black'}}>

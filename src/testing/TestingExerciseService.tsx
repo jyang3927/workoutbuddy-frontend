@@ -132,7 +132,7 @@ export function TestingExerciseService(){
                 <button onClick={() => createExerciseTest({uId: 'delete', name:'delete', type:'demo', muscle: 'demo', sets:[]})}>Add</button>
                 {createExercise._id}
                 <button onClick={() => deleteExerciseId('66106e231994afbf9ac1df82')}>Delete</button>
-                <button onClick={() => updateExerciseTest('66106e236288809696261923', {sets: ["66133ab870a53c69c62a9dcf"]})}>Update</button>
+                {/* <button onClick={() => updateExerciseTest('66106e236288809696261923', {sets: ["66133ab870a53c69c62a9dcf"]})}>Update</button> */}
             
             </div>
             <div>
