@@ -18,9 +18,10 @@ export function TestingUserActivity() {
     routines: [],
     workedOut: false,
   });
-  const [activityIdForDeletion, setActivityIdForDeletion] = useState<
-    string | null
-  >(null);
+  const [activityIdForDeletion, setActivityIdForDeletion] = useState<{
+    uId: string;
+    date: Date;
+  } | null>({ uId: "demo", date: dateTest });
   console.log(dateTest);
   const getUserActivityTesting = async (month: Date) => {
     let yearDate = month.getFullYear();
@@ -42,10 +43,11 @@ export function TestingUserActivity() {
   const deleteUserActivityTesting = async () => {
     if (activityIdForDeletion) {
       try {
+        // console.log(activityIdForDeletion);
         await deleteUserActivity(activityIdForDeletion);
         console.log(`Activity with ID ${activityIdForDeletion} deleted`);
         setActivityIdForDeletion(null);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Deletion failed:", error);
       }
     } else {

@@ -10,7 +10,7 @@ export const getUserActivityByDate = async (
   try {
     console.log("dbUserActivityService year:", year);
     console.log("dbUserActivityService month:", month);
-    const response = await dbAxiosInstance.get(`/userActivity`, {
+    const response = await dbAxiosInstance.get(`/api/userActivity`, {
       params: {
         year: year,
         month: month,
@@ -32,7 +32,10 @@ export const createUserActivity = async (
 ): Promise<UserActivity> => {
   try {
     // console.log(activityData)
-    const response = await dbAxiosInstance.post(`/userActivity`, activityData);
+    const response = await dbAxiosInstance.post(
+      `/api/userActivity`,
+      activityData
+    );
     console.log("db", response.data.date);
     return response.data.date;
   } catch (error: any) {
@@ -43,12 +46,16 @@ export const createUserActivity = async (
 
 //Delete User Activity
 export const deleteUserActivity = async (
-  activityId: string
+  activityInfo: {
+    uId: string;
+    date: Date;
+  } | null
 ): Promise<UserActivity> => {
   try {
-    console.log(`Deleting user activity with ID: ${activityId}`);
+    console.log(activityInfo);
+    console.log(`Deleting user activity with ID: ${activityInfo}`);
     const response = await dbAxiosInstance.delete(
-      `/userActivity/${activityId}`
+      `/api/userActivity/${activityInfo}`
     );
     console.log("Activity deleted:", response.data);
     return response.data;
