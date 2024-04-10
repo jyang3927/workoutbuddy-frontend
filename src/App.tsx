@@ -40,7 +40,11 @@ function App() {
         />
         <Route path="/calendar" element={<MyCalendar />} />
         <Route path="/userActivity/:date" element={<RoutinePerDate />} />
-        <Route path="/favorites/routines" element={<TestingExerciseService/>} />
+        <Route path="/test" element={<TestingUserActivity />} />
+        <Route
+          path="/favorites/routines"
+          element={<TestingExerciseService />}
+        />
         <Route path="/favorites/exercises" element={<Entries />} />
         {/* <Route path="/calendar/day/:date" element={<ExercisesPerDate />} /> */}
       </Routes>
