@@ -62,13 +62,13 @@ export const createUserActivity = async (
   activityData: UserActivity
 ): Promise<UserActivity> => {
   try {
-    console.log(activityData)
+    // console.log(activityData)
     const response = await dbAxiosInstance.post(
       `/userActivity`,
       activityData
     );
-    console.log(response)
-    return response.data;
+    console.log("db", response.data.date)
+    return response.data.date;
   } catch (error: any) {
     console.error("Failed to create user activity:", error);
     throw error;
