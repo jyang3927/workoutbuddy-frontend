@@ -19,9 +19,8 @@ export function TestingUserActivity() {
     workedOut: false,
   });
   const [activityIdForDeletion, setActivityIdForDeletion] = useState<{
-    uId: string;
-    date: Date;
-  } | null>({ uId: "demo", date: dateTest });
+    _id?: string;
+  } | null>({ _id: "661405d478fad4d7a9256dce" });
   console.log(dateTest);
   const getUserActivityTesting = async (month: Date) => {
     let yearDate = month.getFullYear();

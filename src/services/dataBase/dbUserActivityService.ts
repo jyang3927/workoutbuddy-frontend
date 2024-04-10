@@ -47,15 +47,14 @@ export const createUserActivity = async (
 //Delete User Activity
 export const deleteUserActivity = async (
   activityInfo: {
-    uId: string;
-    date: Date;
+    _id?: string;
   } | null
 ): Promise<UserActivity> => {
   try {
     console.log(activityInfo);
     console.log(`Deleting user activity with ID: ${activityInfo}`);
     const response = await dbAxiosInstance.delete(
-      `/api/userActivity/${activityInfo}`
+      `/api/userActivity/${activityInfo?._id}`
     );
     console.log("Activity deleted:", response.data);
     return response.data;
