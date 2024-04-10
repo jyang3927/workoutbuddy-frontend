@@ -26,8 +26,7 @@ export const getUserActivityByDate = async (
     throw error;
   }
 };
-//get array of activities UserActvitiy:
-
+//Create user activity
 export const createUserActivity = async (
   activityData: UserActivity
 ): Promise<UserActivity> => {
@@ -42,6 +41,20 @@ export const createUserActivity = async (
   }
 };
 
+//Delete User Activity
+export const deleteUserActivity = async (
+  activityId: string
+): Promise<UserActivity> => {
+  try {
+    console.log(`Deleting user activity with ID: ${activityId}`);
+    const response = await dbAxiosInstance.delete(
+      `/userActivity/${activityId}`
+    );
+    console.log("Activity deleted:", response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error("Failed to delete user activity:", error);
+    throw error;
+  }
+};
 //return array of exercise ObjectId;
-
-//Create user activity
