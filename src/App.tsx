@@ -19,8 +19,9 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { RoutinePerDate } from "./routinePerDate/components/RoutinePerDate";
 import { UserActivityProvider } from "./context/UserActivityContext";
 import { Entries } from "./addExercise/components/Entries";
-import { ExercisesPerDate } from "./datePage/components/ExercisesPerDate";
-import { TestingUserActivity } from "./testing/TestingUserActivity";
+import DateCalendarServerRequest from "./calendar/MyCalendar";
+import { TestingExerciseService } from "./testing/TestingExerciseService";
+import { TestingUserActivity } from "./testing/TestingUserAct";
 function App() {
   return (
     // <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -41,7 +42,7 @@ function App() {
         <Route path="/favorites/routines" element={<TestingComponent />} />
         <Route path="/test" element={<TestingUserActivity />} />
         <Route path="/favorites/exercises" element={<Entries />} />
-        <Route path="/calendar/day/:date" element={<ExercisesPerDate />} />
+        {/* <Route path="/calendar/day/:date" element={<ExercisesPerDate />} /> */}
       </Routes>
     </BrowserRouter>
     // </AuthProvider>

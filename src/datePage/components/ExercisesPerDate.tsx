@@ -5,17 +5,31 @@ import { useAuth } from "../../hooks/useAuth";
 import { useUserActivity } from "../../hooks/useUserActivity";
 import { UserActivity } from "../../models/UserActivity";
 
-export function ExercisesPerDate() {
-  const date = useParams().date;
-  const { getDayActivity, userActivity } = useUserActivity();
-  const [dayActivity, setDayActivity] = useState<UserActivity[] | null>(null);
-  useEffect(() => {
-    if (date) {
-      setDayActivity(getDayActivity(new Date(date)));
-      getDayActivity(new Date(date));
-      console.log(dayActivity, new Date(date));
-    }
-  }, [date]);
+interface ExercisesPerDateProps{
+  day: Date; 
+}
 
-  return <div className="ExercisesPerDate"></div>;
+export function ExercisesPerDate({day}: ExercisesPerDateProps) {
+  // const date = useParams().date;
+  const { getDayActivity } = useUserActivity();
+
+  const [dayActivity, setDayActivity] = useState<UserActivity[]| null>(null);
+
+  // console.log(dayActivity)
+
+  useEffect(() => {
+      getActivityForDay(day)
+      // getDayActivity(day);
+      // console.log(dayActivity, day);
+    }, [day]);
+
+  const getActivityForDay = (day:Date) => {
+    let response = getDayActivity(day); 
+    console.log("getDayActivityResponse:", response)
+    setDayActivity(response)
+    console.log("DayActivityState:",dayActivity)
+  }
+  return (
+  <div className="ExercisesPerDate"></div>
+  );
 }
