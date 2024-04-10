@@ -4,6 +4,7 @@ import { UserActivityContext } from "../../context/UserActivityContext";
 import { useAuth } from "../../hooks/useAuth";
 import { useUserActivity } from "../../hooks/useUserActivity";
 import { UserActivity } from "../../models/UserActivity";
+import { RoutineForDate } from "./RoutineForDate";
 
 export function ExercisesPerDate() {
   const { getDayActivity,dateSelected } = useUserActivity();
@@ -23,12 +24,17 @@ export function ExercisesPerDate() {
     }
   }
 
+  if(dayActivity){
+    console.log("IFDAYACT",dayActivity.routines)
+  }
+ 
+
   return (
   <div className="ExercisesPerDate">
     <div>
       <div>{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
       {dayActivity !== null && 
-        <div>{dayActivity._id}</div>
+        dayActivity.routines.map((routine) => <RoutineForDate routineId={routine}/>) 
       }
     </div>
   </div>
