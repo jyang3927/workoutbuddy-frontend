@@ -8,15 +8,17 @@ export const getUserActivityByDate = async (
   date: Date | null
 ): Promise<UserActivity[]> => {
   try {
-    console.log("dbUserActivityService year:", year); 
+    console.log("dbUserActivityService year:", year);
     console.log("dbUserActivityService month:", month);
     const response = await dbAxiosInstance.get(`/userActivity`, {
       params: {
-        year: year, month: month, date: date
-      }
+        year: year,
+        month: month,
+        date: date,
+      },
     });
     // console.log("response.status:", response.status)
-    console.log ("responseData",response.data)
+    console.log("responseData", response.data);
     return response.data;
   } catch (error: any) {
     // console.log("error api")
@@ -31,11 +33,8 @@ export const createUserActivity = async (
 ): Promise<UserActivity> => {
   try {
     // console.log(activityData)
-    const response = await dbAxiosInstance.post(
-      `/userActivity`,
-      activityData
-    );
-    console.log("db", response.data.date)
+    const response = await dbAxiosInstance.post(`/userActivity`, activityData);
+    console.log("db", response.data.date);
     return response.data.date;
   } catch (error: any) {
     console.error("Failed to create user activity:", error);
@@ -43,8 +42,6 @@ export const createUserActivity = async (
   }
 };
 
-
 //return array of exercise ObjectId;
 
-
-//Create user activity 
+//Create user activity
