@@ -5,14 +5,25 @@ import {
   useEffect,
 } from "react";
 import { UserActivity } from "../models/UserActivity";
-import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
+import {
+  createUserActivity,
+  getUserActivityByDate,
+  updateUserActivity,
+} from "../services/dataBase/dbUserActivityService";
+import { AuthContext } from "./AuthContext";
 import { useAuth } from "../hooks/useAuth";
 
 interface UserActivityContextType {
   getDayActivity: (daySelected: Date) => UserActivity|undefined;
   getUserActivityForMonth:(monthSelected:Date) => Promise<UserActivity[]>; 
+
+  userActivity: UserActivity[] | null;
+  createActivity: (activityData: UserActivity) => Promise<void>;
+  updateActivity: (activityData: UserActivity) => Promise<void>;
+
   userActivity: UserActivity[] | null;  dateSelected: Date; 
   setDateSelected:(date:Date) => void; 
+
 }
 
 export const UserActivityContext = createContext<UserActivityContextType | undefined>(undefined);
@@ -62,9 +73,58 @@ export const UserActivityProvider = ({children}: UserActivityProviderProps) => {
 
     }
   };
-  
+
+  const createActivity = async (activityData: UserActivity): Promise<void> => {
+    try {
+      createUserActivity(activityData)
+        .then((createdActivity: UserActivity) => {
+          if (userActivity !== null) {
+            const newUserActivityList: UserActivity[] = userActivity.slice();
+            newUserActivityList.push(createdActivity);
+            setUserActivity(newUserActivityList);
+          } else {
+            setUserActivity([createdActivity]);
+          }
+        })
+        .catch((error: any) => {
+          console.error("Error creating activity:", error);
+        });
+    } catch (error: any) {
+      console.error("Error creating activity:", error);
+    }
+  };
+
+  const updateActivity = async (activityData: UserActivity): Promise<void> => {
+    try {
+      if (user) {
+        updateUserActivity(user?.uid, activityData)
+          .then((updatedActivity: UserActivity) => {
+            if (userActivity !== null) {
+              const updatedUserActivityList: UserActivity[] = [];
+              for (let i = 0; i < userActivity.length; i++) {
+                if (userActivity[i].uId === updatedActivity.uId) {
+                  updatedUserActivityList.push(updatedActivity);
+                } else {
+                  updatedUserActivityList.push(userActivity[i]);
+                }
+              }
+              setUserActivity(updatedUserActivityList);
+            } else {
+              setUserActivity([updatedActivity]);
+            }
+          })
+          .catch((error: any) => {
+            console.error("Error updating activity:", error);
+          });
+      }
+    } catch (error: any) {
+      console.error("Error updating activity:", error);
+    }
+  };
   return (
-    <UserActivityContext.Provider value={{ userActivity, dateSelected, setDateSelected, getDayActivity, getUserActivityForMonth}}>
+    <UserActivityContext.Provider
+      value={{ userActivity, getDayActivity, createActivity, updateActivity,getUserActivityForMonth }}
+    >
       {children}
     </UserActivityContext.Provider>
   );
