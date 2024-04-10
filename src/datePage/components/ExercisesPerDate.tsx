@@ -5,31 +5,32 @@ import { useAuth } from "../../hooks/useAuth";
 import { useUserActivity } from "../../hooks/useUserActivity";
 import { UserActivity } from "../../models/UserActivity";
 
-interface ExercisesPerDateProps{
-  day: Date; 
-}
+export function ExercisesPerDate() {
+  const { getDayActivity,dateSelected } = useUserActivity();
 
-export function ExercisesPerDate({day}: ExercisesPerDateProps) {
-  // const date = useParams().date;
-  const { getDayActivity } = useUserActivity();
-
-  const [dayActivity, setDayActivity] = useState<UserActivity[]| null>(null);
-
-  // console.log(dayActivity)
+  const [dayActivity, setDayActivity] = useState<UserActivity| null>(null);
 
   useEffect(() => {
-      getActivityForDay(day)
-      // getDayActivity(day);
-      // console.log(dayActivity, day);
-    }, [day]);
+      getActivityForDay(dateSelected)
+    }, [dateSelected]);
 
-  const getActivityForDay = (day:Date) => {
+  const getActivityForDay =  (day:Date) => {
     let response = getDayActivity(day); 
-    console.log("getDayActivityResponse:", response)
-    setDayActivity(response)
-    console.log("DayActivityState:",dayActivity)
+    if (response!==undefined){
+      setDayActivity(response)
+    }else {
+      setDayActivity(null)
+    }
   }
+
   return (
-  <div className="ExercisesPerDate"></div>
+  <div className="ExercisesPerDate">
+    <div>
+      <div>{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
+      {dayActivity !== null && 
+        <div>{dayActivity._id}</div>
+      }
+    </div>
+  </div>
   );
 }

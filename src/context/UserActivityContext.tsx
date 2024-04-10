@@ -9,9 +9,10 @@ import { getUserActivityByDate } from "../services/dataBase/dbUserActivityServic
 import { useAuth } from "../hooks/useAuth";
 
 interface UserActivityContextType {
-  getDayActivity: (daySelected: Date) => UserActivity[];
+  getDayActivity: (daySelected: Date) => UserActivity|undefined;
   getUserActivityForMonth:(monthSelected:Date) => Promise<UserActivity[]>; 
-  userActivity: UserActivity[] | null;
+  userActivity: UserActivity[] | null;  dateSelected: Date; 
+  setDateSelected:(date:Date) => void; 
 }
 
 export const UserActivityContext = createContext<UserActivityContextType | undefined>(undefined);
@@ -20,48 +21,28 @@ interface UserActivityProviderProps {
   children: ReactNode;
 }
 
-export const UserActivityProvider = ({
-  children,
-}: UserActivityProviderProps) => {
+export const UserActivityProvider = ({children}: UserActivityProviderProps) => {
+
+  const currentDate = new Date(); 
+  const { user } = useAuth();
 
   const [userActivity, setUserActivity] = useState<UserActivity[] | null>(null);
-
-  const { user } = useAuth();
+  const [dateSelected, setDateSelected] = useState<Date>(currentDate)
 
   useEffect(() => {
     if (user) {
-      let currentDate = new Date(); 
-      getUserActivityByDate(
-        currentDate.getFullYear(),
-        (currentDate.getMonth() + 1),
-        null
-      )
-        .then((res) => {
-          console.log("res:", res);
-          setUserActivity(res);
-          console.log("userActivity:", userActivity)
-        })
-        .catch((error: any) => {
-          console.log("error line 46")
-          console.log(error);
-        });
+      getUserActivityForMonth(currentDate)
     }
-    // console.log(userActivity)
   }, [user]);
 
 
-  const getUserActivityForMonth = async(month:Date): Promise<UserActivity[]> =>{
+  const getUserActivityForMonth = async(date:Date): Promise<UserActivity[]> =>{
     try{
-      let monthYear = month.getFullYear();
-      console.log("MonthYear", monthYear) 
-      let monthSet = month.getMonth() + 1 ; 
-      console.log("Monthset", monthSet)
-      let response =  await getUserActivityByDate(monthYear, monthSet, null); 
-      // let response = await getUserActivityByDate(null, null, month);
-      console.log("getUserActivityByMonth Response:", response)
+      let dateYear = date.getFullYear();
+      let dateMonth = date.getMonth() + 1 ; 
+      let response =  await getUserActivityByDate(dateYear, dateMonth, null); 
       setUserActivity(response)
       return response;
-      // console.log(response)
     }catch(error:any){
       console.log("error in context")
       return error;
@@ -69,25 +50,21 @@ export const UserActivityProvider = ({
   }
 
   const getDayActivity = (daySelected: Date) => {
-    if (userActivity) {
-      console.log(userActivity)
-      return userActivity.filter((day) => {
-        return day.date === daySelected;
+    if (userActivity !== null) {
+      let userActivityForDate =  userActivity.find((day) => {
+        let dayCheck = new Date(day.date); 
+        return dayCheck.toLocaleDateString() === daySelected.toLocaleDateString();
       });
-      // try{
-      //   let response = getUserActivityByDate(null, null, day)
-      //   return response 
-      // }catch(error:any){
-      //   console.log("error here")
-      // }
+      return userActivityForDate;
+      
     } else {
       console.log("ERROR IS getDayActivity line67")
-      return [];
+
     }
   };
   
   return (
-    <UserActivityContext.Provider value={{ userActivity, getDayActivity, getUserActivityForMonth}}>
+    <UserActivityContext.Provider value={{ userActivity, dateSelected, setDateSelected, getDayActivity, getUserActivityForMonth}}>
       {children}
     </UserActivityContext.Provider>
   );
