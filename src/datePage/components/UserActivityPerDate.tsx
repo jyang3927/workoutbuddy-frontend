@@ -5,8 +5,9 @@ import { useAuth } from "../../hooks/useAuth";
 import { useUserActivity } from "../../hooks/useUserActivity";
 import { UserActivity } from "../../models/UserActivity";
 import { RoutineForDate } from "./RoutineForDate";
+import '../../styles/userActivityPerDate.css'
 
-export function ExercisesPerDate() {
+export function UserActivityPerDate() {
   const { getDayActivity,dateSelected } = useUserActivity();
 
   const [dayActivity, setDayActivity] = useState<UserActivity| null>(null);
@@ -31,11 +32,13 @@ export function ExercisesPerDate() {
 
   return (
   <div className="ExercisesPerDate">
-    <div>
-      <div>{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
-      {dayActivity !== null && 
-        dayActivity.routines.map((routine) => <RoutineForDate routineId={routine}/>) 
-      }
+    <div className="MainInfoDisplay">
+      <div className="DateSelected">{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
+      <div className="InformationBox">
+        {dayActivity !== null && 
+          dayActivity.routines.map((routine) => <RoutineForDate routine={routine}/>) 
+        }
+      </div>
     </div>
   </div>
   );

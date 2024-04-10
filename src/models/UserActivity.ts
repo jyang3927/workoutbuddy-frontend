@@ -1,7 +1,9 @@
+import { Routine } from "./Routine";
+
 export interface UserActivity{
     _id?:string;
     uId: string; 
     date: Date; 
-    routines: string[]; 
+    routines: Routine[]; 
     workedOut: boolean; 
 }

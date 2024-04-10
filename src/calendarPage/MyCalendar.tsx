@@ -4,16 +4,16 @@ import {PickersDay, PickersDayProps} from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useUserActivity } from '../hooks/useUserActivity';
-import { ExercisesPerDate } from '../datePage/components/ExercisesPerDate';
+import { UserActivityPerDate } from '../datePage/components/UserActivityPerDate';
 import dayjs from 'dayjs';
 import { Button } from '@mui/material';
 import { AddNewUserActivity } from '../formsComponents/AddNewUserActivity';
 import { monthsToYears } from 'date-fns';
-
+import '../styles/myCalendar.css'
 
 export default function MyCalendar() {
 
-  const {getUserActivityForMonth, setDateSelected} = useUserActivity(); 
+  const {getUserActivityForMonth, setDateSelected, dateSelected} = useUserActivity(); 
 
   const updateUserMonthSelected = async(day:Date) => {
     await getUserActivityForMonth(day); 
@@ -25,8 +25,9 @@ export default function MyCalendar() {
   }
 
   return (
-    <div>
-      <div>
+    <div className="MyCalendar">
+      <div className="calendarAndForm">
+      <h1 className="calendarTitle">CALENDAR</h1>
         <div className="calendarComponent">
           <LocalizationProvider dateAdapter={AdapterDayjs}> 
             <DateCalendar onChange={(newValue) => handleDateChange(newValue.$d)}/>
@@ -37,8 +38,8 @@ export default function MyCalendar() {
           <AddNewUserActivity/>
         </div>
       </div>
-      <div>
-        <ExercisesPerDate/>
+      <div className="ActivityDisplay">
+        <UserActivityPerDate/>
       </div>
     </div>
   )

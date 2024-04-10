@@ -9,20 +9,14 @@ import { HomePage } from "./homePage/components/HomePage";
 import { AuthenticatedRoute } from "./helper/AuthenticatedRoute";
 import { FavoriteExercises } from "./favoritesPage/components/FavoriteExercises";
 import { AuthBar } from "./login/components/AuthBar";
-import { ExerciseList } from "./favoritesPage/components/ExerciseList";
-import { RoutinesList } from "./favoritesPage/components/RoutinesList";
 import MyCalendar from "./calendarPage/MyCalendar";
 import { AddExerciseForm } from "./addExercise/components/AddExerciseForm";
 import AutocompleteTest from "./testing/AutocompleteTest";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { RoutinePerDate } from "./routinePerDate/components/RoutinePerDate";
 import { UserActivityProvider } from "./context/UserActivityContext";
 import { Entries } from "./addExercise/components/Entries";
 import DateCalendarServerRequest from "./calendarPage/MyCalendar";
-import { ExercisesPerDate } from "./datePage/components/ExercisesPerDate";
+import { UserActivityPerDate } from "./datePage/components/UserActivityPerDate";
 import { TestingExerciseService } from "./testing/TestingExerciseService";
-import { TestingUserActivity } from "./testing/TestingUserAct";
 function App() {
   return (
     // <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -39,7 +33,7 @@ function App() {
           }
         />
         <Route path="/calendar" element={<MyCalendar />} />
-        <Route path="/userActivity/:date" element={<RoutinePerDate />} />
+        {/* <Route path="/userActivity/:date" element={<RoutinePerDate />} /> */}
         <Route path="/favorites/routines" element={<TestingExerciseService/>} />
         <Route path="/favorites/exercises" element={<Entries />} />
         {/* <Route path="/calendar/day/:date" element={<ExercisesPerDate />} /> */}

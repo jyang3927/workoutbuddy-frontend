@@ -34,8 +34,8 @@ export function AddExerciseForm ({onExercise}:ExerciseProps)  {
 
   function handleSubmit(e:FormEvent) {
     e.preventDefault()
-    onExercise({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
-    createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
+    onExercise({name:selectedName, type:type, muscle:muscle, sets:[], uId:muscle})
+    createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:[], uId:muscle})
     // clear the form
     setSearchTerm('')
     setType('')

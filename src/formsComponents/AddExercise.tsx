@@ -31,7 +31,7 @@ export function AddExercise() {
       e.preventDefault()
       console.log(selectedName + type + muscle + sets + muscle)
       // send to MongoDB
-      createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:sets, uId:muscle})
+      createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:[], uId:muscle})
       // clear the form
       setSearchTerm('')
       setType('')

@@ -1,0 +1,37 @@
+.MyCalendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #EEF5F6;
+}
+
+.calendarTitle {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    color: #023E8A
+}
+
+.calendarAndForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: #023E8A;
+}
+
+.ActivityDisplay{
+    background-color: #023E8A;
+    color: white;
+    height: 50%;
+    width: 50%;
+    border-radius: 20px;
+    margin: 0 50px;
+}
+
+.ActivityDisplay{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,7 @@
+.RoutineDiv{
+    color: #023E8A;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
