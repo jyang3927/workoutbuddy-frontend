@@ -1,7 +1,7 @@
 import { Button, Modal, Box, TextField } from '@mui/material';
 import { FormEvent, useEffect, useState } from 'react';
 import { createExerciseInRoutine } from '../services/dataBase/dbExerciseService';
-import { useActionData } from 'react-router-dom';
+import { useActionData, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useUserActivity } from '../hooks/useUserActivity';
 import { createUserActivity } from '../services/dataBase/dbUserActivityService';
@@ -12,7 +12,7 @@ import { AddExercise } from './AddExercise';
 
 export function AddNewUserActivity() {
     const {user} = useAuth(); 
-    
+    const nav = useNavigate()
     const {userActivity, dateSelected} = useUserActivity(); 
 
     const [open, setOpen] = useState<boolean>(false);
@@ -29,12 +29,13 @@ export function AddNewUserActivity() {
 
 
     //Creating new userActivity
-    const createNewUserActivityandRoutine = async(userActivity: UserActivity): Promise<UserActivity> => {
+    const createNewUserActivityandRoutine = async(userActivity: UserActivity): Promise<void> => {
         let response = await createUserActivity(userActivity); 
         console.log("createNewUserActFun", response); 
         let routineAdded = await createNewRoutineInDate({uId: response.uId, routineName:routineNameInput, exercises:[]}, response._id!); 
         console.log("ROUTINE ADDED", routineAdded)
-        return response; 
+        console.log(routineAdded._id)
+        nav(`/routine/${encodeURIComponent(routineAdded._id!)}`)
     }
 
     //creating new routine in useractivity 
@@ -49,6 +50,7 @@ export function AddNewUserActivity() {
             let responseTest = createNewUserActivityandRoutine({uId: user?.uid, date:dateSelected, routines:[], workedOut: true})
             console.log("ResponseTEST", responseTest)   
         }
+
     }
     return(
         <div>

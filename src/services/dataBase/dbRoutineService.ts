@@ -3,7 +3,7 @@ import dbAxiosInstance from "../helpers/dbAxiosInstance";
 
 export const getRoutineById = async(routineId:string): Promise<Routine> => {
     try{
-        let response = await dbAxiosInstance.get(`/routine/${routineId}`); 
+        let response = await dbAxiosInstance.get(`/routines/${routineId}`); 
         return response.data; 
     } catch (error:any){
         console.log("Error failed to fetch data", error); 

@@ -23,6 +23,7 @@ import DateCalendarServerRequest from "./calendarPage/MyCalendar";
 import { ExercisesPerDate } from "./datePage/components/ExercisesPerDate";
 import { TestingExerciseService } from "./testing/TestingExerciseService";
 import { TestingUserActivity } from "./testing/TestingUserAct";
+import { AddExercise } from "./formsComponents/AddExercise";
 function App() {
   return (
     // <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -39,6 +40,7 @@ function App() {
           }
         />
         <Route path="/calendar" element={<MyCalendar />} />
+        <Route path="/routine/:routineId" element={<AddExercise/>} />
         <Route path="/userActivity/:date" element={<RoutinePerDate />} />
         <Route path="/favorites/routines" element={<TestingExerciseService/>} />
         <Route path="/favorites/exercises" element={<Entries />} />
