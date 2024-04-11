@@ -9,7 +9,7 @@
 
 .labels{
     font-weight: 550;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .details{
@@ -25,13 +25,26 @@
 
 .SeeExerciseBtn{
     color: #023E8A;
-    flex:1;
+    flex-wrap:wrap;
 }
 
 .ExerciseName{
     flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap:wrap;
 }
 
 .BasicExerciseInfo{
+    width: 100%;
+    flex-wrap:wrap;
+    flex-direction: column;
+}
+
+.SetDetails{
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
 }

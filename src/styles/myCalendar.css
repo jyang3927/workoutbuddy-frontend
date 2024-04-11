@@ -29,8 +29,8 @@
     color: white;
     min-height: 50%;
     max-height: 100%;
+    border-radius: 7px;
     width: 50%;
-    border-radius: 20px;
     margin: 0 50px;
     padding: 20px;
     display: flex;
