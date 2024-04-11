@@ -18,9 +18,7 @@ export function TestingUserActivity() {
     routines: [],
     workedOut: false,
   });
-  const [activityIdForDeletion, setActivityIdForDeletion] = useState<{
-    _id?: string;
-  } | null>({ _id: "661405d478fad4d7a9256dce" });
+  const [activityIdForDeletion, setActivityIdForDeletion] = useState<string>();
   console.log(dateTest);
   const getUserActivityTesting = async (month: Date) => {
     let yearDate = month.getFullYear();
@@ -39,21 +37,17 @@ export function TestingUserActivity() {
     console.log("Response from testing", response);
     setNewActivityTest(response);
   };
-  const deleteUserActivityTesting = async () => {
-    if (activityIdForDeletion) {
-      try {
-        // console.log(activityIdForDeletion);
-        await deleteUserActivity(activityIdForDeletion);
-        console.log(`Activity with ID ${activityIdForDeletion} deleted`);
-        setActivityIdForDeletion(null);
-      } catch (error: any) {
-        console.error("Deletion failed:", error);
-      }
-    } else {
-      console.log("No activity ID specified for deletion.");
+
+  const deleteUserActivityTesting = async (id: string) => {
+    console.log(id);
+    try {
+      await deleteUserActivity(id);
+      console.log("successful");
+    } catch (error: any) {
+      console.log("Error failed to fetch data", error);
+      throw error;
     }
   };
-
   return (
     <div>
       <h1>Get User Activity</h1>
@@ -75,7 +69,9 @@ export function TestingUserActivity() {
         testing user activity
       </button>
       <h1>Delete User Activity</h1>
-      <button onClick={() => deleteUserActivityTesting()}>
+      <button
+        onClick={() => deleteUserActivityTesting("661405d478fad4d7a9256dce")}
+      >
         Test Delete Activity
       </button>
       {newActivityTest && newActivityTest._id && (
