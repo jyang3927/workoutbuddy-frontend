@@ -1,0 +1,37 @@
+.ExercisePerRoutine{
+    background-color: #EEF5F6;
+    border: 1px solid #023E8A;
+    margin: 10px;
+    display: flex;
+    padding: 0 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.labels{
+    font-weight: 550;
+    font-size: 12px;
+}
+
+.details{
+    font-weight: 400;
+}
+
+.ExerciseHeader{
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.SeeExerciseBtn{
+    color: #023E8A;
+    flex:1;
+}
+
+.ExerciseName{
+    flex: 1;
+}
+
+.BasicExerciseInfo{
+    width: 100%;
+}

@@ -6,15 +6,16 @@ import { useUserActivity } from "../../hooks/useUserActivity";
 import { UserActivity } from "../../models/UserActivity";
 import { RoutineForDate } from "./RoutineForDate";
 import '../../styles/userActivityPerDate.css'
+import { AddNewUserActivity } from "../../formsComponents/AddNewUserActivity";
 
 export function UserActivityPerDate() {
-  const { getDayActivity,dateSelected } = useUserActivity();
+  const { getDayActivity,dateSelected, userActivity } = useUserActivity();
 
   const [dayActivity, setDayActivity] = useState<UserActivity| null>(null);
 
   useEffect(() => {
       getActivityForDay(dateSelected)
-    }, [dateSelected]);
+    }, [dateSelected, userActivity]);
 
   const getActivityForDay =  (day:Date) => {
     let response = getDayActivity(day); 
@@ -26,6 +27,7 @@ export function UserActivityPerDate() {
   }
 
   if(dayActivity){
+    console.log("DAYSELECTED", dayActivity)
     console.log("IFDAYACT",dayActivity.routines)
   }
  
@@ -33,11 +35,16 @@ export function UserActivityPerDate() {
   return (
   <div className="ExercisesPerDate">
     <div className="MainInfoDisplay">
-      <div className="DateSelected">{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
+      <div className="DateSelected">Activity Log</div>
       <div className="InformationBox">
-        {dayActivity !== null && 
-          dayActivity.routines.map((routine) => <RoutineForDate routine={routine}/>) 
-        }
+        <div className="RoutineInfoBox">
+          {dayActivity !== null && 
+            dayActivity.routines.map((routine) => <RoutineForDate routine={routine}/>) 
+          }
+        </div>
+        <div className="AddLog">
+          <AddNewUserActivity currentUserActivity = {dayActivity}/>
+        </div>
       </div>
     </div>
   </div>

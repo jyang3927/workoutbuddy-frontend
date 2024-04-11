@@ -30,15 +30,17 @@ export function RoutineForDate({routine}: RoutineForDateProps){
 //     }
     
 // //    let response = getRoutineInfo(routineId); 
-    console.log("Routine", routine.exercises
-    )
-    console.log("RoutineExercisesLength", routine.exercises.length)
-    console.log("Routines Exercises Array", routine.exercises[0])
+    // console.log("Routine", routine.exercises
+    // )
+    // console.log("RoutineExercisesLength", routine.exercises.length)
+    // console.log("Routines Exercises Array", routine.exercises[0])
 
     return(
         <div className="RoutineDiv"> 
-            <div className="RoutineName">Routine Name: {routine.routineName}</div>
+            <div className="RoutineLabel">ROUTINE <span className="RoutineName">: {routine.routineName}</span></div>
+            <div>
             {routine.exercises.length !== 0 && routine.exercises.map((exercises) => <ExercisePerRoutine exercise={exercises}/>)}
+            </div>
         </div>
     )
 }

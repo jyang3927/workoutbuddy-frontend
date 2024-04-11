@@ -10,6 +10,8 @@ import { Button } from '@mui/material';
 import { AddNewUserActivity } from '../formsComponents/AddNewUserActivity';
 import { monthsToYears } from 'date-fns';
 import '../styles/myCalendar.css'
+import { AuthBar } from '../login/components/AuthBar';
+import { Link } from 'react-router-dom';
 
 export default function MyCalendar() {
 
@@ -21,25 +23,47 @@ export default function MyCalendar() {
   }
 
   function handleDateChange(newValue:Date) {
-    updateUserMonthSelected(newValue);
+    if(newValue.getMonth() !== dateSelected.getMonth()){
+      updateUserMonthSelected(newValue);
+    }else {
+      setDateSelected(newValue)
+    }
   }
 
   return (
-    <div className="MyCalendar">
-      <div className="calendarAndForm">
-      <h1 className="calendarTitle">CALENDAR</h1>
-        <div className="calendarComponent">
-          <LocalizationProvider dateAdapter={AdapterDayjs}> 
-            <DateCalendar onChange={(newValue) => handleDateChange(newValue.$d)}/>
-          </LocalizationProvider>
-        </div>
-        <div className="AddActivityComponent"> 
-          {/* <Button variant="contained">Add Workout</Button> */}
-          <AddNewUserActivity/>
-        </div>
+    <div className="columnFlex">
+      <div className="NavBar">
+          <Link to="/">
+            <Button>Home</Button>
+          </Link>
+          <Link to="/calendar">
+            <Button className="Nav">Calendar</Button>
+          </Link>
+          <Link to="/favorites/routines">
+            <Button>My Routines</Button>
+          </Link>
+          <Link to="/favorites/exercises">
+            <Button>My Exercises</Button>
+          </Link>
       </div>
-      <div className="ActivityDisplay">
-        <UserActivityPerDate/>
+      <div>
+        <div className="MyCalendar">
+          <div className="calendarAndForm">
+            <h1 className="calendarTitle">{dateSelected.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</h1>
+            <div className="calendarComponent">
+              <LocalizationProvider dateAdapter={AdapterDayjs}> 
+                <DateCalendar onChange={(newValue) => handleDateChange(newValue.$d)}/>
+              </LocalizationProvider>
+            </div>
+            {/* <div className="AddActivityComponent"> 
+              {/* <Button variant="contained">Add Workout</Button> */}
+              {/* <AddNewUserActivity/>
+            </div> */} 
+          </div>
+          <div className="ActivityDisplay">
+            <UserActivityPerDate/>
+          </div>
+        </div>
       </div>
     </div>
   )
