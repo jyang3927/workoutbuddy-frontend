@@ -1,0 +1,39 @@
+.MainInfoDisplay{
+    min-height: 300px;
+    width: 100%;
+}
+
+.ExercisesPerDate{
+    width: 90%;
+    min-height: 300px;
+}
+
+.DateSelected{
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    /* border-bottom: 4px solid white; */
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.InformationBox{
+    background-color: white;
+    width: 100%;
+    height: 50%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.RoutineInfoBox{
+    width: 100%;
+    height: 45vh;
+    overflow-y: scroll;
+
+}
+.AddLog{
+    margin-top: 10px;
+}

@@ -16,7 +16,7 @@ export const getUserActivityByDate = async (
       }
     });
     // console.log("response.status:", response.status)
-    console.log ("responseData",response.data)
+    console.log ("responseDataService",response.data)
     return response.data;
   } catch (error: any) {
     // console.log("error api")

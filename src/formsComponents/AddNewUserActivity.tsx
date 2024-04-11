@@ -9,14 +9,20 @@ import { createNewRoutine } from '../services/dataBase/dbRoutineService';
 import { UserActivity } from '../models/UserActivity';
 import { Routine } from '../models/Routine';
 import { AddExercise } from './AddExercise';
+import '../styles/addNewUserActivity.css'
 
-export function AddNewUserActivity() {
+interface AddNewUserActivityProps{
+    currentUserActivity:UserActivity | null;
+}
+
+export function AddNewUserActivity({currentUserActivity}:AddNewUserActivityProps) {
     const {user} = useAuth(); 
     
-    const {userActivity, dateSelected} = useUserActivity(); 
+    const {userActivity, dateSelected, getUserActivityForMonth} = useUserActivity(); 
 
     const [open, setOpen] = useState<boolean>(false);
     const [routineNameInput, setRoutineNameInput] = useState<string>("")
+    const [newActivity, setNewActivity] = useState<Routine | null>(null)
 
     const [newActivityTemp, setNewActivityTemp] = useState<UserActivity | null>(null)
 
@@ -26,6 +32,10 @@ export function AddNewUserActivity() {
     const handleOpen = () => {
         setOpen(true);
     };
+
+    useEffect(() => {
+        getUserActivityForMonth(dateSelected)
+    }, [newActivity])
 
 
     //Creating new userActivity
@@ -40,19 +50,30 @@ export function AddNewUserActivity() {
     //creating new routine in useractivity 
     const createNewRoutineInDate = async(routine:Routine, userId:string) => {
         let newRoutine = await createNewRoutine(routine, userId); 
+        console.log("NEW ROUTINE RAN", newRoutine)
+        setNewActivity(newRoutine)
         return newRoutine
     }
 
     function handleSubmit(e:FormEvent){
         e.preventDefault(); 
         if(user){
-            let responseTest = createNewUserActivityandRoutine({uId: user?.uid, date:dateSelected, routines:[], workedOut: true})
-            console.log("ResponseTEST", responseTest)   
+            console.log("DATE SELECTED FORM EVENT SUBMIT", dateSelected)
+            if(currentUserActivity === null){
+                let responseTest = createNewUserActivityandRoutine({uId: user?.uid, date:dateSelected, routines:[], workedOut: true})
+                console.log("RESPONSE TEST IF USER ACT WAS NULL", responseTest)
+            }else if (currentUserActivity !== null){
+                let response = createNewRoutineInDate({uId: currentUserActivity.uId, routineName:routineNameInput, exercises:[]}, currentUserActivity._id!)
+                console.log("RESPONSE TEST IF USER ACT WASNOT NULL", response)
+            }
+              
         }
     }
     return(
         <div>
-            <Button variant="contained" onClick={handleOpen}>Add Workout</Button>
+            <div className="CreateNewLogBtn">
+                <Button variant="contained" size="small" onClick={handleOpen}>Create New Log</Button>
+            </div>
             <Modal
                 open={open}
                 onClose={handleClose}

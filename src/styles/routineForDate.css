@@ -1,0 +1,24 @@
+.RoutineDiv{
+    color: #023E8A;
+    border-bottom: 3px solid #023E8A;
+    /* border-radius: 7px; */
+    margin: 10px 3px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.RoutineLabel{
+    font-weight: 550;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.RoutineName{
+    font-weight: 500;
+}
