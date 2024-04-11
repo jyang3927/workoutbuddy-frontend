@@ -5,6 +5,7 @@ interface SetInfoProps{
 }
 
 export function SetInfo({sets}:SetInfoProps){
+    console.log("Set Info Here:", sets)
     return(
         <div className="SetInfo">
             <div>
@@ -12,10 +13,10 @@ export function SetInfo({sets}:SetInfoProps){
             </div>
             <div>
                 <div>
-                    <p className="labelSet">Weights: <span className="setDetail">{sets.setNumber}lbs</span></p>               
+                    <p className="labelSet">Weight: <span className="setDetail">{sets.weight}lbs</span></p>               
                 </div>
                 <div>
-                    <p className="labelSet">Reps: <span className="setDetail">{sets.setNumber}</span></p> 
+                    <p className="labelSet">Reps: <span className="setDetail">{sets.reps}</span></p> 
                 </div>
             </div>
                 
