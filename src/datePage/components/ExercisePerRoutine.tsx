@@ -4,6 +4,7 @@ import { getExerciseById } from "../../services/dataBase/dbExerciseService";
 import '../../styles/exercisePerRoutine.css'
 import { SetInfo } from "./SetInfo";
 import { Button } from "@mui/material";
+import { AddSet } from "../../formsComponents/AddSet";
 
 interface ExercisePerRoutineProps{
     exercise:string ;
@@ -12,7 +13,6 @@ interface ExercisePerRoutineProps{
 export function ExercisePerRoutine({exercise}:ExercisePerRoutineProps){
 
     const [exerciseInfo, setExerciseInfo] = useState<Exercise | null>(null); 
-    const [exerciseIdSet, setExerciseId] = useState<string>('')
     const [open, setOpen] = useState<boolean>(false);
 
     // const [displayExerciseInfo, setDisplayExerciseInfo] = useState<
@@ -50,14 +50,16 @@ export function ExercisePerRoutine({exercise}:ExercisePerRoutineProps){
                 <div className="ExerciseHeader">
                     <div className="ExerciseName">
                         <p className="labels">Exercise: <span className="details">{exerciseInfo.name}</span></p>
+                        <p className="labels">Muscle: <span className="details">{exerciseInfo.muscle}</span></p>
                     </div>
                     <div className="SeeExerciseBtn">
-                        <Button size="small" onClick={open === false ? handleOpen : handleClose} style={{display: 'flex', alignItems:'center', fontSize: '10px', padding:'0'}}>See Exercise Info</Button>
+                        <AddSet exercise={exerciseInfo}/>
+                        <Button variant="outlined" size="small" onClick={open === false ? handleOpen : handleClose} style={{display: 'flex', alignItems:'center', fontSize: '10px', padding:'3px', margin:"10px"}}>{open === true ? 'Close Sets' : 'See Sets'}</Button>
                         {/* <Button size="small" onClick={open === false ? handleClose : handleOpen} style={{display: open ===true ? "flex": "none"}}>Close Exercise Info</Button> */}
                     </div>
                 </div>
-                {open === true && <p className="labels"> <span className="details">{exerciseInfo.sets.map((setInfo) => <SetInfo sets={setInfo}/>)}</span></p>}
-            </div>}
+                {open === true && <div className="SetDetails">{exerciseInfo.sets.map((setInfo) => <SetInfo sets={setInfo}/>)}</div> }
+                </div>}
         </div>
     )
 }

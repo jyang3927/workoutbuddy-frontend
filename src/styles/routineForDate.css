@@ -14,11 +14,18 @@
     text-align: center;
     display: flex;
     justify-content: center;
-    font-size: 12px;
+    font-size: 15px;
     margin: 0;
     padding: 0;
 }
 
 .RoutineName{
     font-weight: 500;
+}
+
+.RoutineDetails{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10px;
 }
