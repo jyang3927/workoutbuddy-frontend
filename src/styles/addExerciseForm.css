@@ -1,0 +1,4 @@
+.exerciseFormInput{
+    display: flex;
+    flex-direction: column;
+}

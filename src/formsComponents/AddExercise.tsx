@@ -8,6 +8,7 @@ import { createExerciseInRoutine, createNewExercise } from '../services/dataBase
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import { Routine } from '../models/Routine';
+import '../styles/addExerciseForm.css'
 
 interface AddExerciseProps{
   routine:Routine | null; 
@@ -89,19 +90,20 @@ export function AddExercise({routine}: AddExerciseProps) {
           aria-describedby="modal-modal-description"
         >
           <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-            <form onSubmit={handleSubmit}>
-              <TextField label="Name" fullWidth value={searchTerm}
+            <form className="exerciseFormInput" onSubmit={handleSubmit}>
+              <TextField label="Name" fullWidth value={searchTerm} style={{margin:"7px"}}
               onChange={(e) => {clearTimeout(delay); setSearchTerm(e.target.value)}}/>
               {exercises &&
-              <select name="options" id="options" value={selectedName} onChange={handleChange}>
+              <select style={{margin:"7px", height: "30px", width:"100%" }} name="options" id="options" value={selectedName} onChange={handleChange}>
               {exercises.map((item)=> <option value={item.name}>{item.name}</option> )}
-          </select>}
-              <TextField label="Type" fullWidth value={type} onChange={(e) => setType(e.target.value)}/>
-              <TextField label="Muscle" fullWidth value={muscle} onChange={(e) => setMuscle(e.target.value)}/>
+              </select>}
+              <TextField style={{margin:"7px"}} label="Type" fullWidth value={type} onChange={(e) => setType(e.target.value)}/>
+              <TextField style={{margin:"7px"}} label="Muscle" fullWidth value={muscle} onChange={(e) => setMuscle(e.target.value)}/>
                 
               {/* Add more form fields as needed */}
-              <Button type="submit" variant="contained" sx={{ mt: 2 }}>Submit</Button>
+              <Button type="submit" style={{margin:"7px", width:"100%"}} variant="contained" sx={{ mt: 2 }}>Submit</Button>
             </form>
+            <Button onClick={handleClose}>Done</Button>
           </Box>
         </Modal>
       </div>

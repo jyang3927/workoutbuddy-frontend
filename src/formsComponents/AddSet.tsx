@@ -13,7 +13,7 @@ interface AddSetProps{
 
 export function AddSet({exercise}: AddSetProps){
 
-    const {dateSelected, getUserActivityForMonth} = useUserActivity();
+    const {dateSelected, getUserActivityForMonth, userActivity} = useUserActivity();
 
     const [currentSet, setCurrentSet] = useState<Set|null>(null)
     const [setNumber, setSetNumber] = useState<number>(0)
@@ -23,6 +23,7 @@ export function AddSet({exercise}: AddSetProps){
 
     useEffect(() => {
         getUserActivityForMonth(dateSelected)
+        console.log("USERACTIVITY SET USE EFFECT", userActivity )
     }, [currentSet])
 
     const createNewSet = async(set: Set, exerciseId:string) => {

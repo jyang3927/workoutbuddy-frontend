@@ -7,12 +7,18 @@ import {
 import { UserActivity } from "../models/UserActivity";
 import { getUserActivityByDate } from "../services/dataBase/dbUserActivityService";
 import { useAuth } from "../hooks/useAuth";
+import { Exercise } from "../models/Exercise";
+import { Set } from "../models/Set";
 
 interface UserActivityContextType {
   getDayActivity: (daySelected: Date) => UserActivity|undefined;
   getUserActivityForMonth:(monthSelected:Date) => Promise<UserActivity[]>; 
-  userActivity: UserActivity[] | null;  dateSelected: Date; 
+  userActivity: UserActivity[] | null;  
+  dateSelected: Date; 
   setDateSelected:(date:Date) => void; 
+
+  // TESTING 
+  // updateExOrSet: Exercise | Set; 
 }
 
 export const UserActivityContext = createContext<UserActivityContextType | undefined>(undefined);
@@ -28,6 +34,9 @@ export const UserActivityProvider = ({children}: UserActivityProviderProps) => {
 
   const [userActivity, setUserActivity] = useState<UserActivity[] | null>(null);
   const [dateSelected, setDateSelected] = useState<Date>(currentDate)
+
+  // TESTING
+  // const[updateExOrSet, ]
 
   useEffect(() => {
     if (user) {

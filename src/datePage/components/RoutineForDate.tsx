@@ -12,16 +12,18 @@ interface RoutineForDateProps{
 
 export function RoutineForDate({routine}: RoutineForDateProps){
 
-    const [routineObj, setRoutineObj] = useState<Routine | null>(null); 
+    const [routineObj, setRoutineObj] = useState<Routine | null>(routine); 
+
+    console.log("ROUTINE OBJ", routineObj)
 
     const [exercises, setExercises] = useState<string[] | null>(null)
 
-//     // useEffect(() => {
-//     //     if(routineObj){
-//     //         setExercises(routineObj?.exercises)
-//     //     }
+    // useEffect(() => {
+    //     if(routineObj !== null){
+    //         setExercises(routineObj.exercises)
+    //     }
         
-//     // }, [routineObj])
+    // }, [routine])
 
 //     const getRoutineInfo = async(routineIds:string) => {
 //         let routineArray = await getRoutineById(routineIds); 
@@ -36,6 +38,7 @@ export function RoutineForDate({routine}: RoutineForDateProps){
     // console.log("RoutineExercisesLength", routine.exercises.length)
     // console.log("Routines Exercises Array", routine.exercises[0])
     console.log("ROUTINE line 38", routine)
+    console.log("EXERCISES FOR ROUTINE", exercises)
     return(
         <div className="RoutineDiv"> 
         <div className="RoutineDetails">
@@ -44,6 +47,7 @@ export function RoutineForDate({routine}: RoutineForDateProps){
         </div>
             
             <div>
+                {/* {exercises !== null && exercises.map((exercise) =><ExercisePerRoutine exercise={exercise}/>) } */}
                 {routine.exercises.length !== 0 && routine.exercises.map((exercises) => <ExercisePerRoutine exercise={exercises}/>)}
             </div>
         </div>
