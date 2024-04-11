@@ -98,8 +98,7 @@ export function AddExercise({routine}: AddExerciseProps) {
           </select>}
               <TextField label="Type" fullWidth value={type} onChange={(e) => setType(e.target.value)}/>
               <TextField label="Muscle" fullWidth value={muscle} onChange={(e) => setMuscle(e.target.value)}/>
-                
-              {/* Add more form fields as needed */}
+
               <Button type="submit" variant="contained" sx={{ mt: 2 }}>Submit</Button>
             </form>
           </Box>

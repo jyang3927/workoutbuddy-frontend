@@ -1,4 +1,4 @@
-import { Button, Modal, Box, TextField } from '@mui/material';
+import { Button, Modal, Box, TextField, IconButton } from '@mui/material';
 import { FormEvent, useEffect, useState } from 'react';
 import { createExerciseInRoutine } from '../services/dataBase/dbExerciseService';
 import { useActionData } from 'react-router-dom';
@@ -8,8 +8,10 @@ import { createUserActivity } from '../services/dataBase/dbUserActivityService';
 import { createNewRoutine } from '../services/dataBase/dbRoutineService';
 import { UserActivity } from '../models/UserActivity';
 import { Routine } from '../models/Routine';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { AddExercise } from './AddExercise';
 import '../styles/addNewUserActivity.css'
+import '../styles/addSet.css'
 
 interface AddNewUserActivityProps{
     currentUserActivity:UserActivity | null;
@@ -71,21 +73,16 @@ export function AddNewUserActivity({currentUserActivity}:AddNewUserActivityProps
     }
     return(
         <div>
-            <div className="CreateNewLogBtn">
-                <Button variant="contained" size="small" onClick={handleOpen}>Create New Log</Button>
-            </div>
+            <IconButton className="CreateNewLogBtn" size="small" onClick={handleOpen}><p>Add Routine   </p><ControlPointIcon/></IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
+                aria-describedby="modal-modal-description">
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-                    <form onSubmit={handleSubmit}>
-                        <label>Create a name for your routine</label>
-                        <TextField label="Routine Name" value={routineNameInput} onChange={(e) => setRoutineNameInput(e.target.value)}/>
-                        {/* <AddExercise/> */}
-                        <Button type="submit" variant="contained" sx={{ mt: 2 }} >Submit</Button>
+                    <form className="setForm" onSubmit={handleSubmit}>
+                        <TextField style={{margin:"7px"}} label="Routine Name" value={routineNameInput} onChange={(e) => setRoutineNameInput(e.target.value)}/>
+                        <Button style={{margin:"7px"}} type="submit" variant="contained" sx={{ mt: 2 }} >Submit</Button>    
                     </form>
                     <Button onClick={handleClose}>Done</Button>
                 </Box>
