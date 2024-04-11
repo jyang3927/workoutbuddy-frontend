@@ -1,100 +1,201 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { Button, Modal, Box, TextField } from '@mui/material';
-import { searchExerciseName } from '../services/ExerciseApiService';
-import { ExerciseApiResponse } from '../models/ExerciseApiResponse';
-import {Exercise} from '../models/Exercise';
-import { Set } from '../models/Set';
-import { createNewExercise } from '../services/dataBase/dbExerciseService';
+import React, { FormEvent, useEffect, useState } from "react";
+import { Button, Modal, Box, TextField } from "@mui/material";
+import { searchExerciseName } from "../services/ExerciseApiService";
+import { ExerciseApiResponse } from "../models/ExerciseApiResponse";
+import { Exercise } from "../models/Exercise";
+import { Set } from "../models/Set";
+import {
+  addExerciseIdToRoutine,
+  createNewExercise,
+  getExerciseById,
+} from "../services/dataBase/dbExerciseService";
 
 export function AddExercise() {
-    const [open, setOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState<string>('')
-    const [exercises, setExercises] = useState<ExerciseApiResponse[]>([])
-    const [type, setType] = useState<string>('')
-    const [muscle, setMuscle] = useState<string>('')
-    const [sets, setSet] = useState<string[]>([])
-    const [selectedName, setSelectedName] = useState('')
-    const [createExercise, setCreateExercise] = useState<Exercise>({uId: 'null', name:'n', type:'n', muscle: 'n', sets:[]});
-  
-    const createExerciseTest = async(exercise: Exercise) => {
-      try{
-          let response = await createNewExercise(exercise); 
-          setCreateExercise(response); 
-          console.log(response)
-      }catch (error:any){
-          console.log("Error failed to fetch data", error); 
-          throw error;
-      }   
-  }
-  
-    function handleSubmit(e:FormEvent) {
-      e.preventDefault()
-      console.log(selectedName + type + muscle + sets + muscle)
-      // send to MongoDB
-      createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:[], uId:muscle})
-      // clear the form
-      setSearchTerm('')
-      setType('')
-      setMuscle('')
+  const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [exercises, setExercises] = useState<ExerciseApiResponse[]>([]);
+  const [type, setType] = useState<string>("");
+  const [muscle, setMuscle] = useState<string>("");
+  const [sets, setSet] = useState<string[]>([]);
+  const [selectedName, setSelectedName] = useState("");
+  const [createExercise, setCreateExercise] = useState<Exercise>({
+    uId: "null",
+    name: "n",
+    type: "n",
+    muscle: "n",
+    sets: [],
+  });
+
+  const createExerciseTest = async (exercise: Exercise) => {
+    try {
+      let response = await createNewExercise(exercise);
+      setCreateExercise(response);
+      console.log(response);
+    } catch (error: any) {
+      console.log("Error failed to fetch data", error);
+      throw error;
     }
-  
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-  
-    const handleChange = (event:any) => {
-      setSelectedName(event.target.value);
-      const foundMuscle = exercises.find((item)=> item.name === event.target.value)
-      console.log(foundMuscle)
-      if (foundMuscle) {
-      setMuscle(foundMuscle.muscle)
-      setType(foundMuscle.type)
-      }
-    }
-  
-    const getExercisesName = async() => {
-      try{
-          let response = await searchExerciseName(searchTerm) 
-          setExercises(response)
-      }
-      catch(error:any){
-          console.log("Failed")
-      }
+  };
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    console.log(selectedName + type + muscle + sets + muscle);
+    // send to MongoDB
+    createExerciseTest({
+      name: selectedName,
+      type: type,
+      muscle: muscle,
+      sets: [],
+      uId: muscle,
+    });
+    // clear the form
+    setSearchTerm("");
+    setType("");
+    setMuscle("");
   }
-      let delay:any;
-      useEffect(()=> 
-      { delay = setTimeout(()=> {
-      getExercisesName();}, 750)},[searchTerm])
-  
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (event: any) => {
+    setSelectedName(event.target.value);
+    const foundMuscle = exercises.find(
+      (item) => item.name === event.target.value
+    );
+    console.log(foundMuscle);
+    if (foundMuscle) {
+      setMuscle(foundMuscle.muscle);
+      setType(foundMuscle.type);
+    }
+  };
+
+  const getExercisesName = async () => {
+    try {
+      let response = await searchExerciseName(searchTerm);
+      setExercises(response);
+    } catch (error: any) {
+      console.log("Failed");
+    }
+  };
+  let delay: any;
+  useEffect(() => {
+    delay = setTimeout(() => {
+      getExercisesName();
+    }, 750);
+  }, [searchTerm]);
+  //add exercise to routine
+  function AddExerciseToRoutine() {
+    const [exerciseId, setExerciseId] = useState("");
+    const [routineId, setRoutineId] = useState("");
+    const handleAddExerciseToRoutine = async () => {
+      try {
+        const exercise = await getExerciseById(exerciseId);
+        const updatedRoutine = await addExerciseIdToRoutine(
+          exercise,
+          routineId
+        );
+        console.log("Routine updated with new exercise:", updatedRoutine);
+        setExerciseId("");
+        setRoutineId("");
+      } catch (error) {
+        console.error("Failed to add exercise to routine", error);
+      }
+    };
     return (
       <div>
-        <Button variant="contained" onClick={handleOpen}>Add Exercise</Button>
+        <Button variant="contained" onClick={handleOpen}>
+          Add Exercise
+        </Button>
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 400,
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <form onSubmit={handleSubmit}>
-              <TextField label="Name" fullWidth value={searchTerm}
-              onChange={(e) => {clearTimeout(delay); setSearchTerm(e.target.value)}}/>
-              {exercises &&
-              <select name="options" id="options" value={selectedName} onChange={handleChange}>
-              {exercises.map((item)=> <option value={item.name}>{item.name}</option> )}
-          </select>}
-              <TextField label="Type" fullWidth value={type} onChange={(e) => setType(e.target.value)}/>
-              <TextField label="Muscle" fullWidth value={muscle} onChange={(e) => setMuscle(e.target.value)}/>
-                
+              <TextField
+                label="Name"
+                fullWidth
+                value={searchTerm}
+                onChange={(e) => {
+                  clearTimeout(delay);
+                  setSearchTerm(e.target.value);
+                }}
+              />
+              {exercises && (
+                <select
+                  name="options"
+                  id="options"
+                  value={selectedName}
+                  onChange={handleChange}
+                >
+                  {exercises.map((item) => (
+                    <option value={item.name}>{item.name}</option>
+                  ))}
+                </select>
+              )}
+              <TextField
+                label="Type"
+                fullWidth
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              />
+              <TextField
+                label="Muscle"
+                fullWidth
+                value={muscle}
+                onChange={(e) => setMuscle(e.target.value)}
+              />
+
               {/* Add more form fields as needed */}
-              <Button type="submit" variant="contained" sx={{ mt: 2 }}>Submit</Button>
+              <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                Submit
+              </Button>
+              <div className="submitFavoriteRoutine">
+                <TextField
+                  label="Exercise ID"
+                  variant="outlined"
+                  value={exerciseId}
+                  onChange={(e) => setExerciseId(e.target.value)}
+                  fullWidth
+                />
+                <TextField
+                  label="Routine ID (MongoDB)"
+                  variant="outlined"
+                  value={routineId}
+                  onChange={(e) => setRoutineId(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleAddExerciseToRoutine}
+                  sx={{ mt: 2 }}
+                >
+                  Add Exercise to Routine
+                </Button>
+              </div>
             </form>
           </Box>
         </Modal>
       </div>
-    )
+    );
+  }
 }
