@@ -15,7 +15,7 @@ export function UserActivityPerDate() {
 
   useEffect(() => {
       getActivityForDay(dateSelected)
-    }, [dateSelected, userActivity]);
+    }, [dateSelected, userActivity, dayActivity]);
 
   const getActivityForDay =  (day:Date) => {
     let response = getDayActivity(day); 

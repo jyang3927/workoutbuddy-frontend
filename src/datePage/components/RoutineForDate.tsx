@@ -4,6 +4,7 @@ import { getRoutineById } from "../../services/dataBase/dbRoutineService";
 import { Routine } from "../../models/Routine";
 import { ExercisePerRoutine } from "./ExercisePerRoutine";
 import '../../styles/routineForDate.css'
+import { AddExercise } from "../../formsComponents/AddExercise";
 
 interface RoutineForDateProps{
     routine: Routine;
@@ -34,12 +35,16 @@ export function RoutineForDate({routine}: RoutineForDateProps){
     // )
     // console.log("RoutineExercisesLength", routine.exercises.length)
     // console.log("Routines Exercises Array", routine.exercises[0])
-
+    console.log("ROUTINE line 38", routine)
     return(
         <div className="RoutineDiv"> 
+        <div className="RoutineDetails">
             <div className="RoutineLabel">ROUTINE <span className="RoutineName">: {routine.routineName}</span></div>
+            <AddExercise routine={routine}/>
+        </div>
+            
             <div>
-            {routine.exercises.length !== 0 && routine.exercises.map((exercises) => <ExercisePerRoutine exercise={exercises}/>)}
+                {routine.exercises.length !== 0 && routine.exercises.map((exercises) => <ExercisePerRoutine exercise={exercises}/>)}
             </div>
         </div>
     )

@@ -4,9 +4,18 @@ import { searchExerciseName } from '../services/ExerciseApiService';
 import { ExerciseApiResponse } from '../models/ExerciseApiResponse';
 import {Exercise} from '../models/Exercise';
 import { Set } from '../models/Set';
-import { createNewExercise } from '../services/dataBase/dbExerciseService';
+import { createExerciseInRoutine, createNewExercise } from '../services/dataBase/dbExerciseService';
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import { Routine } from '../models/Routine';
 
-export function AddExercise() {
+interface AddExerciseProps{
+  routine:Routine | null; 
+}
+
+export function AddExercise({routine}: AddExerciseProps) {
+
+
     const [open, setOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string>('')
     const [exercises, setExercises] = useState<ExerciseApiResponse[]>([])
@@ -14,12 +23,13 @@ export function AddExercise() {
     const [muscle, setMuscle] = useState<string>('')
     const [sets, setSet] = useState<string[]>([])
     const [selectedName, setSelectedName] = useState('')
-    const [createExercise, setCreateExercise] = useState<Exercise>({uId: 'null', name:'n', type:'n', muscle: 'n', sets:[]});
+
+    const [createdExercise, setCreatedExercise] = useState<Exercise | null>(null);
   
-    const createExerciseTest = async(exercise: Exercise) => {
+    const createExerciseForRoutine = async(exercise: Exercise, routineId:string) => {
       try{
-          let response = await createNewExercise(exercise); 
-          setCreateExercise(response); 
+          let response = await createExerciseInRoutine(exercise, routineId); 
+          setCreatedExercise(response); 
           console.log(response)
       }catch (error:any){
           console.log("Error failed to fetch data", error); 
@@ -31,20 +41,17 @@ export function AddExercise() {
       e.preventDefault()
       console.log(selectedName + type + muscle + sets + muscle)
       // send to MongoDB
-      createExerciseTest({name:selectedName, type:type, muscle:muscle, sets:[], uId:muscle})
+      if(routine !== null){
+        createExerciseForRoutine({name:selectedName, type:type, muscle:muscle, sets:[], uId:routine.uId}, routine?._id!)
+      }
       // clear the form
       setSearchTerm('')
       setType('')
       setMuscle('')
     }
   
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+    const handleOpen = () => {setOpen(true)};
+    const handleClose = () => {setOpen(false)};
   
     const handleChange = (event:any) => {
       setSelectedName(event.target.value);
@@ -64,15 +71,17 @@ export function AddExercise() {
       catch(error:any){
           console.log("Failed")
       }
-  }
-      let delay:any;
-      useEffect(()=> 
-      { delay = setTimeout(()=> {
-      getExercisesName();}, 750)},[searchTerm])
+    }
+    
+    let delay:any;
+    useEffect(()=> 
+    { delay = setTimeout(()=> {
+    getExercisesName();}, 750)},[searchTerm])
   
     return (
       <div>
-        <Button variant="contained" onClick={handleOpen}>Add Exercise</Button>
+        <IconButton size="small" onClick={handleOpen}><AddIcon/></IconButton>
+        {/* <Button startIcon={<AddIcon />} variant="contained" size="small" sx={{bgcolor:'primary.dark'}} style={{fontSize:"10px"}} onClick={handleOpen}></Button> */}
         <Modal
           open={open}
           onClose={handleClose}

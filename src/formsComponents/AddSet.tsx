@@ -21,22 +21,19 @@ export function AddSet({exercise}: AddSetProps){
     const [reps, setReps] = useState<number>(0)
     const [open, setOpen] = useState(false)
 
-    // function getTheExercise() {
-    //     if (exerciseId) {
-    //         getExerciseById(exerciseId)
-    //         .then((response) => {setCurrentExercise(response)})
-    //     }
-    // }
-
     useEffect(() => {
         getUserActivityForMonth(dateSelected)
     }, [currentSet])
 
     const createNewSet = async(set: Set, exerciseId:string) => {
-      let newSet = await createNewSetInExercise(set, exerciseId);
-      setCurrentSet(newSet)
-    //   await getTheExercise() 
-      return newSet
+        try{
+            let newSet = await createNewSetInExercise(set, exerciseId);
+            setCurrentSet(newSet); 
+            return newSet;
+        }catch (error:any){
+            console.log("Error failed to fetch data", error); 
+            throw error;
+        }   
       }
     
 
